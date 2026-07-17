@@ -1,0 +1,16 @@
+{
+  "name": "flowdotcom",
+  "short_name": "flowdotcom",
+  "description": "flowdotcom construiește aplicații digitale de calitate — mobile, web și desktop — pentru afaceri care vor să crească.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#04070f",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
