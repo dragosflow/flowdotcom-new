@@ -71,7 +71,7 @@ export const ServicesProcess = ({
           {heading}
         </AnimatedHeading>
 
-        <ol className="grid min-h-0 flex-1 grid-cols-2 grid-rows-2 lg:flex-none lg:grid-cols-4 lg:grid-rows-1 lg:divide-x lg:divide-white/10">
+        <ol className="grid min-h-0 flex-1 grid-cols-2 grid-rows-2 divide-x divide-y divide-white/10 lg:flex-none lg:grid-cols-4 lg:grid-rows-1 lg:divide-y-0">
           {steps.map((step, i) => (
             <ProcessStepCard key={step.step} step={step} index={i} />
           ))}
@@ -102,16 +102,16 @@ const ProcessStepCard = ({
       to={{ opacity: 1, x: 0 }}
       config={{ tension: 200, friction: 28 }}
       delayIn={index * 90}
-      className="list-none h-full min-h-0"
+      className="flex h-full min-h-0 list-none"
     >
       <article
         ref={ref}
-        className="flex h-full min-h-0 flex-col border-b border-white/10 px-1 py-4 sm:min-h-[16rem] sm:border-b-0 sm:px-5 sm:py-6 lg:px-7"
+        className="flex h-full min-h-0 w-full flex-col px-3 py-4 sm:min-h-[16rem] sm:px-5 sm:py-6 lg:px-7"
       >
         <Hover
           trigger={ref}
           tag="div"
-          className="flex h-full min-h-0 flex-col justify-between"
+          className="flex h-full min-h-0 flex-col"
           from={{ transform: "scale(1)" }}
           to={{ transform: "scale(1.03)" }}
           config={HOVER_CONFIG}
@@ -120,7 +120,7 @@ const ProcessStepCard = ({
           <span className="text-3xl font-light tracking-tight text-white/35 sm:text-4xl">
             {step.step}
           </span>
-          <div className="mt-4 sm:mt-10">
+          <div className="mt-auto pt-4 sm:pt-10">
             <h3 className="text-lg font-medium leading-snug tracking-tight sm:text-xl">
               {step.title}
             </h3>

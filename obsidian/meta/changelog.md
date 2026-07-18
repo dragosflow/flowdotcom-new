@@ -14,7 +14,8 @@ This is a human-curated log — not a mirror of `git log`.
   viewport): sticky layers used `h-lvh`, so on Safari Mobile the bottom UI sat
   under the browser bar (and process steps 1–4 stacked too tall in one column).
   Pins → `h-svh md:h-lvh`; bottom `env(safe-area-inset-bottom)` padding; process
-  grid is 2×2 equal rows on phones (`grid-rows-2` + `h-full` cards); chain pin
+  grid is 2×2 equal rows on phones (`grid-rows-2` + `h-full` cards) with
+  `divide-x`/`divide-y` so separators stay on the grid lines (aligned); chain pin
   progress uses `section.clientHeight`. `viewportFit: "cover"` on the root
   viewport export.
 
