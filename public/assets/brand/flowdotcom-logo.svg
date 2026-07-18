@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 24" fill="none" role="img" aria-label="flowdotcom">
+  <title>flowdotcom</title>
+  <!-- Lucide Zap + wordmark — tight gap (4px), viewBox cropped to content -->
+  <svg x="0" y="4" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+      stroke="currentColor"
+      stroke-width="2.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <text
+    x="20"
+    y="16.5"
+    fill="currentColor"
+    font-family="Mulish, ui-sans-serif, system-ui, sans-serif"
+    font-size="14"
+    font-weight="500"
+    letter-spacing="-0.01em"
+  >flowdotcom</text>
+</svg>

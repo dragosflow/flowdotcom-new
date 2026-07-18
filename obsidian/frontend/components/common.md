@@ -8,6 +8,12 @@ updated: 2026-07-17
 Files in `src/components/common/` — shared infrastructure that may depend on
 providers. Conventions: [[component-conventions]].
 
+## Brand
+
+| Component     | File               | Role                                                                 |
+| ------------- | ------------------ | -------------------------------------------------------------------- |
+| `<BrandLogo>` | `brand-logo.tsx`   | SVG lockup — Lucide Zap + “flowdotcom” wordmark (`currentColor`). Used in preloader / static asset (`public/assets/brand/flowdotcom-logo.svg`). Header brand mark stays Lucide `Zap` + text. Favicon (Zap only): `public/favicon.ico` / `public/assets/brand/favicon-zap.svg`. |
+
 ## Grid — adaptive scaling (`grid/`)
 
 The **adaptive scaling grid** keeps a rem-based layout proportional across every

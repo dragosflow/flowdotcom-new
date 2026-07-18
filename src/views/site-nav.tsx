@@ -145,18 +145,18 @@ export const SiteNav = ({
         {onHome ? (
           <span
             className={`${PILL} gap-2 px-5 font-medium text-white/50`}
-            aria-current='page'
+            aria-current="page"
           >
-            <Zap className='h-4 w-4' aria-hidden='true' strokeWidth={2.25} />
+            <Zap className="h-4 w-4" aria-hidden="true" strokeWidth={2.25} />
             {brand}
           </span>
         ) : (
           <NavLink
-            href='/'
+            href="/"
             preview={brandPreview}
             className={`${PILL} gap-2 px-5 font-medium ${FOCUS_RING}`}
           >
-            <Zap className='h-4 w-4' aria-hidden='true' strokeWidth={2.25} />
+            <Zap className="h-4 w-4" aria-hidden="true" strokeWidth={2.25} />
             {brand}
           </NavLink>
         )}

@@ -22,6 +22,15 @@ This is a human-curated log — not a mirror of `git log`.
   optional `fitUnits` (default 3.6); footer phone uses `2.35` so it sits lighter
   in the panel. Chain model size unchanged.
 
+- **Brand logo SVG** (`brand-logo.tsx`, `public/assets/brand/flowdotcom-logo.svg`):
+  Zap + “flowdotcom” lockup for assets / preloader; **header keeps** Lucide
+  `Zap` + text (same size as before). SVG gap tightened (4px) and viewBox cropped
+  to `90×24` (no trailing dead space).
+
+- **Favicon = Zap** (`public/favicon.ico`, `favicon-16/32.png`, apple/android
+  icons): white Lucide bolt on `#04070f` rounded square; replaces the old starter
+  icons. Source: `public/assets/brand/favicon-zap.svg`.
+
 - **Custom cursor perf** (`custom-cursor.tsx`): dropped react-spring + perpetual
   ticker + full-viewport `mix-blend-difference`. Core snaps on `pointermove`;
   ring/size lerp only while settling (ticker unsubscribes when idle).
