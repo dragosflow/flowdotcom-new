@@ -161,7 +161,7 @@ export const CollaborationForm = ({ content }: CollaborationFormProps) => {
             >
               <button
                 type="submit"
-                className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white hover:bg-black/90"
+                className="min-h-12 rounded-full bg-black px-8 py-4 text-lg font-medium text-white hover:bg-black/90 sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm"
               >
                 {cta}
               </button>

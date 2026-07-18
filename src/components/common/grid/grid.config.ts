@@ -31,12 +31,10 @@ export interface GridBreakpoint {
 /** Breakpoints, largest first. The design base is 1440 (Figma) — at 1440 the root
  *  font-size equals FONT_BASE and the layout is 1:1; above 1440 it scales up.
  *
- *  NB: the ≤640 (mobile) tier no longer uses a plain `baseWidth` vw formula. A pure
- *  `16·100/360 vw` kept scaling *up* across the whole 0–640 range (~28px root by 620px →
- *  everything overflowed). `globals.css` now clamps that tier to
- *  `clamp(12px, 1.5625vw, 16px)` — a readable 12px floor, continuous with the 1024 tier
- *  at 640, never ballooning. The `baseWidth: 360` below is kept only as the nominal design
- *  width for that range; it does not drive the CSS. See changelog 2026-07-05. */
+ *  NB: the ≤640 (mobile) tier uses `clamp(15px, 4.2vw, 16px)` in `globals.css` (not a
+ *  raw `16·100/360 vw`, which ballooned to ~28px by 620px). The ≤1024 tier is also
+ *  floored at 14px so tablets near 640 don’t fall to ~10px. `baseWidth: 360` is the
+ *  nominal phone design width. See changelog 2026-07-18. */
 export const GRID_BREAKPOINTS: readonly GridBreakpoint[] = [
   { maxWidth: 1440, baseWidth: 1440 },
   { maxWidth: 1024, baseWidth: 1024 },

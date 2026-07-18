@@ -37,8 +37,8 @@ export const Product = ({ content }: ProductProps) => {
       aria-labelledby={labelId}
       className='relative z-20 bg-hero-page px-6 py-24 text-black md:px-12 lg:px-page-gutter'
     >
-      {/* Heading + CTA, centred */}
-      <div className='mb-14 flex flex-col items-center text-center'>
+      {/* Heading + CTA, centred — solo primary CTA is larger on mobile */}
+      <div className='mb-10 flex flex-col items-center text-center sm:mb-14'>
         <AnimatedHeading
           as='h2'
           id={labelId}
@@ -49,11 +49,11 @@ export const Product = ({ content }: ProductProps) => {
         <MagneticCta className='mt-8' cursorLabel={cta.label}>
           <Link
             href={cta.href}
-            className={`inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-medium text-white hover:bg-black/90 ${FOCUS_RING}`}
+            className={`inline-flex min-h-12 items-center gap-2 rounded-full bg-black px-8 py-4 text-lg font-medium text-white hover:bg-black/90 sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm ${FOCUS_RING}`}
           >
             {cta.label}
             <ArrowUpRight
-              className='h-3.5 w-3.5'
+              className='h-4 w-4 sm:h-3.5 sm:w-3.5'
               aria-hidden='true'
               strokeWidth={2.25}
             />
@@ -61,11 +61,11 @@ export const Product = ({ content }: ProductProps) => {
         </MagneticCta>
       </div>
 
-      {/* Bento */}
-      <div ref={rootRef} className='grid gap-5 lg:grid-cols-4'>
+      {/* Bento — compact on mobile (no forced tall min-height); stretch only on lg */}
+      <div ref={rootRef} className='grid gap-4 sm:gap-5 lg:grid-cols-4'>
         <animated.article
           style={cardStyle(0)}
-          className='relative flex min-h-[26rem] flex-col justify-between overflow-hidden rounded-3xl p-8 text-black lg:col-span-2 [will-change:transform,opacity]'
+          className='relative flex flex-col gap-5 overflow-hidden rounded-3xl p-6 text-black sm:gap-6 sm:p-8 lg:col-span-2 lg:min-h-[26rem] lg:justify-between lg:gap-0 [will-change:transform,opacity]'
         >
           <Image
             src='/assets/images/6th.png'
@@ -77,31 +77,31 @@ export const Product = ({ content }: ProductProps) => {
           <h3 className='relative text-2xl leading-snug tracking-tight'>
             {cards.grow.title}
           </h3>
-          <p className='relative max-w-md text-base leading-relaxed text-black/70 sm:text-lg'>
+          <p className='relative max-w-md text-lg leading-relaxed text-black/75'>
             {cards.grow.body}
           </p>
         </animated.article>
 
         <animated.article
           style={cardStyle(1)}
-          className='flex min-h-[26rem] flex-col justify-between rounded-3xl bg-card-gray p-8 text-black [will-change:transform,opacity]'
+          className='flex flex-col gap-5 rounded-3xl bg-card-gray p-6 text-black sm:gap-6 sm:p-8 lg:min-h-[26rem] lg:justify-between lg:gap-0 [will-change:transform,opacity]'
         >
           <h3 className='text-2xl leading-snug tracking-tight'>
             {cards.liquid.title}
           </h3>
-          <p className='text-base leading-relaxed text-black/70 sm:text-lg'>
+          <p className='text-lg leading-relaxed text-black/75'>
             {cards.liquid.body}
           </p>
         </animated.article>
 
         <animated.article
           style={cardStyle(2)}
-          className='flex min-h-[26rem] flex-col justify-between rounded-3xl bg-card-gray p-8 text-black [will-change:transform,opacity]'
+          className='flex flex-col gap-5 rounded-3xl bg-card-gray p-6 text-black sm:gap-6 sm:p-8 lg:min-h-[26rem] lg:justify-between lg:gap-0 [will-change:transform,opacity]'
         >
           <h3 className='text-2xl leading-snug tracking-tight'>
             {cards.hands.title}
           </h3>
-          <p className='text-base leading-relaxed text-black/70 sm:text-lg'>
+          <p className='text-lg leading-relaxed text-black/75'>
             {cards.hands.body}
           </p>
         </animated.article>

@@ -1,8 +1,8 @@
 "use client";
 
 // Fixed site header overlaid on the page: a brand pill and a separate links pill on
-// the left, and a white CTA on the right — all the same height (h-11). The current
-// route’s nav item (and brand when on `/`) is not a link — aria-current + muted.
+// the left, and a white CTA on the right — taller on mobile (`h-12`), `h-11` from `sm`.
+// The current route’s nav item (and brand when on `/`) is not a link — aria-current + muted.
 // Clickable in-app links show a small screenshot preview on hover (desktop only).
 import { useRef, type ReactNode, type RefObject } from "react";
 import Image from "next/image";
@@ -35,7 +35,7 @@ export interface SiteNavProps extends SiteNavContent {
 }
 
 const PILL =
-  "flex h-11 items-center rounded-full border border-white/10 bg-black/30 backdrop-blur-md";
+  "flex h-12 items-center rounded-full border border-white/10 bg-black/30 backdrop-blur-md sm:h-11";
 
 const PREVIEW_CONFIG = { tension: 320, friction: 28 };
 
@@ -168,7 +168,7 @@ export const SiteNav = ({
                 <span
                   key={item.label}
                   aria-current='page'
-                  className='rounded-full px-4 py-2 text-sm text-white/40'
+                  className='rounded-full px-4 py-2 text-base text-white/40 sm:text-sm'
                 >
                   {item.label}
                 </span>
@@ -187,7 +187,7 @@ export const SiteNav = ({
                 <NavLink
                   href={item.href}
                   preview={item.preview}
-                  className={`rounded-full px-4 py-2 text-sm text-white ${FOCUS_RING}`}
+                  className={`rounded-full px-4 py-2 text-base text-white sm:text-sm ${FOCUS_RING}`}
                 >
                   {item.label}
                 </NavLink>
@@ -197,7 +197,7 @@ export const SiteNav = ({
         </nav>
       </div>
       {pathsMatch(cta.href, pathname) ? (
-        <span className='inline-flex h-11 items-center gap-1.5 rounded-full bg-white/70 px-6 text-sm font-medium text-plum/70'>
+        <span className='inline-flex h-12 items-center gap-1.5 rounded-full bg-white/70 px-7 text-base font-medium text-plum/70 sm:h-11 sm:px-6 sm:text-sm'>
           {cta.label}
         </span>
       ) : (
@@ -215,7 +215,7 @@ export const SiteNav = ({
               preview={cta.preview}
               cursor='cta'
               cursorLabel={cta.label}
-              className={`inline-flex h-11 items-center gap-1.5 rounded-full bg-white px-6 text-sm font-medium text-plum shadow-sm hover:bg-white/90 ${FOCUS_RING}`}
+              className={`inline-flex h-12 items-center gap-1.5 rounded-full bg-white px-7 text-base font-medium text-plum shadow-sm hover:bg-white/90 sm:h-11 sm:px-6 sm:text-sm ${FOCUS_RING}`}
             >
               {cta.label}
               <ArrowUpRight

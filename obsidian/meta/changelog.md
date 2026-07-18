@@ -10,6 +10,22 @@ This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-07-18
 
+- **Product cards + solo CTAs (mobile)** (`product.tsx`, CTAs, `globals.css`): home
+  product bento dropped `min-h-[26rem]` / `justify-between` on small screens (cards
+  hug content with `gap-5`); body copy `text-lg`. Solo primary CTAs → `text-lg` /
+  `px-8 py-4` / `min-h-12` on mobile. Phone root floor `15px` (`4.2vw`).
+
+- **Footer legal bar contrast** (`site-footer.tsx`): entity/copyright + tagline/credit
+  use one `text-footer-muted` family; soft `from-footer` gradient scrim behind the bar
+  so type stays readable where the WebGL mesh washes light. Bottom padding lives on
+  the legal bar (`pb-0` on `<footer>`) so there’s no empty strip under the copy.
+
+- **Mobile type + buttons** (`globals.css`, CTAs, nav, body copy): phone root was
+  floored at 12px (`clamp(12px, 1.5625vw, 16px)`), so rem type/`text-sm` pills felt
+  tiny. Mobile → `clamp(14px, 4vw, 16px)`; tablet ≤1024 also floors at 14px. Primary
+  buttons / nav CTA use `text-base` + larger padding on mobile (`sm:` back to
+  `text-sm`); key body/footer copy bumped similarly. Docs: design-system, common grid.
+
 - **Titles / descriptions cleaned** (`page.tsx`, `servicii`, `colaborare`,
   `site.ts`): layout template `%s · flowdotcom` was doubling brand on routes that
   already said “flowdotcom”; Colaborare also stuffed `FLOWDOTCOM S.R.L` into
@@ -42,8 +58,8 @@ This is a human-curated log — not a mirror of `git log`.
 - **AIO entity: FLOWDOTCOM S.R.L** (`site.ts`, `structured-data.ts`, footer):
   `legalName` in site config; JSON-LD Organization `legalName` + `alternateName`;
   meta description names the SRL; footer shows company in contact +
-  `entityNote` (“site-ul oficial al FLOWDOTCOM S.R.L”). Legal lines use black
-  text without a background strip (same bar layout as before).
+  `entityNote` (“site-ul oficial al FLOWDOTCOM S.R.L”). Legal bar uses muted
+  footer text over a soft navy scrim (readable on the light mesh corner).
 
 - **SEO / AIO pass** (`site.ts`, `generate-page-metadata.ts`, `structured-data.ts`,
   `json-ld.tsx`, pages, `robots.ts`, `layout.tsx`, home/services copy): richer

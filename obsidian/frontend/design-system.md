@@ -129,8 +129,12 @@ rule references `--font-mulish` directly. Only up to weight 500 ships, so
 One shared button shape across the site (the hero primary is the reference), applied
 as inline utilities:
 
-- **Base:** `rounded-full px-6 py-3 text-sm font-medium` — normal case (no `uppercase`),
-  no tracking overrides, no icon/arrow.
+- **Base (solo primary CTA):** `rounded-full min-h-12 px-8 py-4 text-lg font-medium
+  sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm` — larger tap target + type when the button
+  sits alone on a row (hero, product, services intro, footer, forms). Desktop matches
+  the compact `text-sm` pill.
+- **Base (inline / crowded):** keep `sm:` sizes; nav uses `h-12`/`text-base` on mobile
+  and `h-11`/`text-sm` from `sm`.
 - **Filled:** add a solid fill + contrasting text — `bg-black text-white hover:bg-black/90`
   on light sections; the hero's on-dark primary is `bg-white text-black`.
 - **Outline:** same base but `border` + transparent fill, inheriting/among the section's
@@ -140,8 +144,8 @@ as inline utilities:
   `bg-footer-fg/10 backdrop-blur-md border-footer-fg/25` (same idea as the nav
   pill's `bg-black/30 backdrop-blur-md`).
 
-**Exceptions:** the fixed header pill (`site-nav`) keeps its own `h-11` sizing; the hero
-secondary "Learn more" is a plain underlined text link, not a pill.
+**Exceptions:** the hero secondary "Learn more" is a plain underlined text link, not a
+pill. Works “view” control stays mid-size (shares a row with other chrome).
 
 ## Styling rules
 

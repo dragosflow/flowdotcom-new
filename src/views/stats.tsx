@@ -142,7 +142,7 @@ export const Stats = ({ content }: StatsProps) => {
               {commitment.points.map((point) => (
                 <li
                   key={point}
-                  className="flex gap-3 text-sm leading-snug text-black/55"
+                  className="flex gap-3 text-base leading-snug text-black/55 sm:text-sm"
                 >
                   <span
                     className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-black/35"
@@ -161,7 +161,7 @@ export const Stats = ({ content }: StatsProps) => {
             shellClassName="flex min-h-0 flex-1 flex-col"
             className="flex h-full min-h-0 flex-1 flex-col rounded-3xl bg-card-blue p-8 text-white [will-change:transform,opacity]"
           >
-            <p className="text-sm text-white/70">{data.label}</p>
+            <p className="text-base text-white/70 sm:text-sm">{data.label}</p>
             <div className={`mt-4 ${STAT_NUM}`}>{data.value}</div>
             <p className="mt-auto max-w-xs text-base leading-relaxed text-white/80">
               {data.desc}

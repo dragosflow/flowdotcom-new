@@ -83,7 +83,7 @@ const ServiceCard = ({
         <h3 className="mt-8 text-xl font-medium leading-snug tracking-tight">
           {item.title}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-black/65 sm:text-base">
+        <p className="mt-3 text-base leading-relaxed text-black/65">
           {item.body}
         </p>
       </Hover>

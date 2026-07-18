@@ -256,7 +256,7 @@ export const Works = ({ content }: WorksProps) => {
               target='_blank'
               rel='noopener noreferrer'
               aria-disabled={items[0].href ? undefined : "true"}
-              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/25 px-5 py-2.5 text-sm font-medium text-white/80 hover:border-white/60 hover:text-white sm:px-6 sm:py-3 ${FOCUS_RING}${items[0].href ? "" : " invisible pointer-events-none"}`}
+              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/25 px-7 py-3.5 text-base font-medium text-white/80 hover:border-white/60 hover:text-white sm:px-6 sm:py-3 sm:text-sm ${FOCUS_RING}${items[0].href ? "" : " invisible pointer-events-none"}`}
             >
               {viewLabel}
               <ArrowUpRight

@@ -32,11 +32,10 @@ whole UI scales as one unit. Lives in `src/components/common/grid/`.
 - **Scale down** (viewport ≤ 1440px, the Figma design base) — `vw`-based
   `html { font-size }` media queries in `globals.css`. At each breakpoint's design
   base width the root font-size resolves to 16px; between breakpoints it tracks the
-  viewport. **Exception — the ≤640 (mobile) tier is clamped**, not a raw `vw`: it
-  reads `clamp(12px, 1.5625vw, 16px)`. The old pure `16·100/360 vw` kept scaling _up_
-  across the whole 0–640 range (~28px root by 620px → headings/stats/cards overflowed,
-  then snapped small at 641px); the clamp gives a readable 12px floor, stays continuous
-  with the 1024 tier at 640, and never balloons (changelog 2026-07-05).
+  viewport. **Exception — mobile/tablet tiers are clamped** in `globals.css`:
+  ≤1024 uses `clamp(14px, 1.5625vw, 16px)` (raw vw fell to ~10px near 640); ≤640 uses
+  `clamp(15px, 4.2vw, 16px)` so phone type/buttons stay readable without the old
+  `4.444vw` balloon (~28px root by 620px). See changelog 2026-07-18.
 - **Scale up** (viewport > 1440px) — the `<AdaptiveGrid>` component sets an
   inline `html` font-size at runtime via [[hooks|`useAdaptiveGrid`]], so the
   design keeps growing on large displays. Mounted with `coef={1}` (fully

@@ -53,10 +53,10 @@ export const ServicesIntro = ({ content }: ServicesIntroProps) => {
           <MagneticCta cursorLabel={cta.label}>
             <a
               href={cta.href}
-              className={`inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-medium text-white hover:bg-black/90 ${FOCUS_RING}`}
+              className={`inline-flex min-h-12 items-center gap-2 rounded-full bg-black px-8 py-4 text-lg font-medium text-white hover:bg-black/90 sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm ${FOCUS_RING}`}
             >
               {cta.label}
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" strokeWidth={2.25} />
+              <ArrowUpRight className="h-4 w-4 sm:h-3.5 sm:w-3.5" aria-hidden="true" strokeWidth={2.25} />
             </a>
           </MagneticCta>
         </Inview>

@@ -42,13 +42,13 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
   } = content;
 
   const colTitle =
-    "mb-4 text-xs font-medium uppercase tracking-wide text-footer-muted";
-  const colLink = "text-sm text-footer-fg/80 hover:text-footer-fg";
+    "mb-4 text-sm font-medium uppercase tracking-wide text-footer-muted sm:text-xs";
+  const colLink = "text-base text-footer-fg/80 hover:text-footer-fg sm:text-sm";
 
   return (
     <footer
       aria-labelledby={labelId}
-      className='relative z-20 flex min-h-lvh flex-col overflow-hidden bg-footer px-6 pb-6 pt-20 text-footer-fg md:px-10 md:pb-10 lg:px-12 lg:pb-12'
+      className='relative z-20 flex min-h-lvh flex-col overflow-hidden bg-footer px-6 pb-0 pt-20 text-footer-fg md:px-10 lg:px-12'
     >
       <FooterScene />
 
@@ -64,7 +64,7 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
           <MagneticCta className='mt-8' cursorLabel={cta.label}>
             <a
               href={cta.href}
-              className={`inline-flex items-center gap-2 rounded-full border border-footer-fg/25 bg-footer-fg/10 px-6 py-3 text-sm font-medium backdrop-blur-md hover:border-footer-fg/45 hover:bg-footer-fg/20 ${FOCUS_RING}`}
+              className={`inline-flex min-h-12 items-center gap-2 rounded-full border border-footer-fg/25 bg-footer-fg/10 px-8 py-4 text-lg font-medium backdrop-blur-md hover:border-footer-fg/45 hover:bg-footer-fg/20 sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm ${FOCUS_RING}`}
             >
               {cta.label}
               <ArrowUpRight
@@ -137,15 +137,17 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
           </div>
         </nav>
 
-        <div className="-mx-6 mt-10 flex flex-col gap-3 border-t border-footer-fg/10 px-6 pt-6 text-xs md:-mx-10 md:px-10 lg:-mx-12 lg:px-12">
-          <div className="flex flex-col gap-2 text-black md:flex-row md:items-start md:justify-between md:gap-6">
-            <div className="flex flex-col gap-2">
+        {/* Bottom legal bar — navy scrim + bottom padding here (not on <footer>)
+            so there’s no empty gap under the copy. */}
+        <div className='-mx-6 mt-10 border-t border-footer-fg/10 bg-gradient-to-t from-footer from-50% via-footer/95 to-transparent px-6 pb-6 pt-6 text-sm md:-mx-10 md:px-10 md:pb-10 md:text-xs lg:-mx-12 lg:px-12 lg:pb-12'>
+          <div className='flex flex-col gap-2 text-footer-muted md:flex-row md:items-start md:justify-between md:gap-6'>
+            <div className='flex flex-col gap-2'>
               <p>{entityNote}</p>
               <p>{copyright}</p>
             </div>
-            <p className="text-footer-muted md:text-right">
-              <span className="text-footer-fg/50">{tagline}</span>
-              <span className="mx-2 text-footer-fg/25" aria-hidden="true">
+            <p className='md:text-right'>
+              <span>{tagline}</span>
+              <span className='mx-2 text-footer-fg/35' aria-hidden='true'>
                 ·
               </span>
               {credit}

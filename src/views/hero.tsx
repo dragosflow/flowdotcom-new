@@ -141,7 +141,7 @@ export const Hero = ({ content }: HeroProps) => {
                   <span className='block text-5xl font-light leading-none sm:text-7xl'>
                     {s.value}
                   </span>
-                  <span className='mt-3 block text-sm text-white'>
+                  <span className='mt-3 block text-base text-white sm:text-sm'>
                     {s.label}
                   </span>
                 </animated.li>
@@ -170,11 +170,11 @@ export const Hero = ({ content }: HeroProps) => {
                 <MagneticCta cursorLabel={cta.label}>
                   <a
                     href={cta.href}
-                    className={`inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 ${FOCUS_RING}`}
+                    className={`inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-medium text-black hover:bg-white/90 sm:min-h-0 sm:px-6 sm:py-3 sm:text-sm ${FOCUS_RING}`}
                   >
                     {cta.label}
                     <ArrowUpRight
-                      className='h-3.5 w-3.5'
+                      className='h-4 w-4 sm:h-3.5 sm:w-3.5'
                       aria-hidden='true'
                       strokeWidth={2.25}
                     />
@@ -183,7 +183,7 @@ export const Hero = ({ content }: HeroProps) => {
                 <UnderlineLink
                   href={secondaryCta.href}
                   internal={false}
-                  className='text-sm text-white hover:text-white/80'
+                  className='text-base text-white hover:text-white/80 sm:text-sm'
                 >
                   {secondaryCta.label}
                 </UnderlineLink>

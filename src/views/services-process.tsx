@@ -124,7 +124,7 @@ const ProcessStepCard = ({
             <h3 className="text-xl font-medium leading-snug tracking-tight">
               {step.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
+            <p className="mt-3 text-base leading-relaxed text-white/60">
               {step.body}
             </p>
           </div>

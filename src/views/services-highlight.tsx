@@ -66,7 +66,7 @@ const Column = ({
         <span className="block text-2xl font-normal leading-[1.05] tracking-tight text-white lg:text-4xl lg:text-black">
           {name}
         </span>
-        <p className="mt-3 text-sm leading-relaxed text-white/80 lg:mt-4 lg:text-base lg:text-black/65">
+        <p className="mt-3 text-base leading-relaxed text-white/80 lg:mt-4 lg:text-black/65">
           {body}
         </p>
       </div>
