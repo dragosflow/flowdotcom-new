@@ -149,7 +149,7 @@ export const Works = ({ content }: WorksProps) => {
       className='relative bg-card-dark text-white'
       style={{ height: `${100 + (count - 1) * SCROLL_PER_CARD}vh` }}
     >
-      <div className='sticky top-0 h-lvh overflow-hidden'>
+      <div className='sticky top-0 h-svh overflow-hidden md:h-lvh'>
         {/* Blurred backdrop — each card's photo, cross-fading to the focused one and
             drifting bottom-to-top with scroll. Dimmed so the cards + caption stay
             dominant. Sits behind everything (first child). */}

@@ -32,7 +32,9 @@ the Lenis dependency can be stripped if smooth scroll is removed.
 
 CSS-string builders for viewport-height units with fallbacks
 (`vh` → `lvh` → `calc(var(--vh) …)`): `heightLvh`, `minHeightLvh`, `marginTopLvh`,
-`marginBottomLvh`. Solves mobile-browser viewport-height inconsistencies.
+`marginBottomLvh`. Prefer Tailwind **`h-svh md:h-lvh`** for sticky pin sections on
+mobile Safari (see changelog 2026-07-18) — `lvh` alone clips bottom UI under the
+browser chrome.
 
 ## `animation/coords.ts`
 

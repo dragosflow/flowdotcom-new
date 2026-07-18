@@ -54,7 +54,7 @@ export const ServicesProcess = ({
     <section
       id={labelId}
       aria-labelledby={`${labelId}-heading`}
-      className="sticky top-0 z-10 h-lvh overflow-hidden bg-footer text-white"
+      className="sticky top-0 z-10 h-svh overflow-hidden bg-footer text-white md:h-lvh"
     >
       <canvas
         ref={bgRef}
@@ -62,16 +62,16 @@ export const ServicesProcess = ({
         className="pointer-events-none absolute inset-0 block h-full w-full"
       />
 
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 py-20 md:px-12 lg:px-page-gutter">
+      <div className="relative z-10 flex h-full flex-col justify-center px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-16 md:px-12 md:py-20 lg:px-page-gutter">
         <AnimatedHeading
           as="h2"
           id={`${labelId}-heading`}
-          className="mb-10 max-w-3xl text-[2rem] font-light leading-[0.95] tracking-tight sm:text-[2.5rem] lg:text-[3.5rem]"
+          className="mb-6 max-w-3xl text-[2rem] font-light leading-[0.95] tracking-tight sm:mb-10 sm:text-[2.5rem] lg:text-[3.5rem]"
         >
           {heading}
         </AnimatedHeading>
 
-        <ol className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/10">
+        <ol className="grid grid-cols-2 gap-0 lg:grid-cols-4 lg:divide-x lg:divide-white/10">
           {steps.map((step, i) => (
             <ProcessStepCard key={step.step} step={step} index={i} />
           ))}
@@ -106,7 +106,7 @@ const ProcessStepCard = ({
     >
       <article
         ref={ref}
-        className="flex min-h-[14rem] flex-col justify-between border-b border-white/10 px-1 py-6 sm:min-h-[16rem] sm:border-b-0 sm:px-5 lg:px-7"
+        className="flex min-h-0 flex-col justify-between border-b border-white/10 px-1 py-4 sm:min-h-[16rem] sm:border-b-0 sm:px-5 sm:py-6 lg:px-7"
       >
         <Hover
           trigger={ref}
@@ -117,14 +117,14 @@ const ProcessStepCard = ({
           config={HOVER_CONFIG}
           disableOnMobile
         >
-          <span className="text-4xl font-light tracking-tight text-white/35">
+          <span className="text-3xl font-light tracking-tight text-white/35 sm:text-4xl">
             {step.step}
           </span>
-          <div className="mt-10">
-            <h3 className="text-xl font-medium leading-snug tracking-tight">
+          <div className="mt-4 sm:mt-10">
+            <h3 className="text-lg font-medium leading-snug tracking-tight sm:text-xl">
               {step.title}
             </h3>
-            <p className="mt-3 text-base leading-relaxed text-white/60">
+            <p className="mt-2 text-sm leading-relaxed text-white/60 sm:mt-3 sm:text-base">
               {step.body}
             </p>
           </div>

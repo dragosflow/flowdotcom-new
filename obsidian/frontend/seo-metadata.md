@@ -38,7 +38,12 @@ export const viewport = generateViewport();
   `{ default, template }`), description, OpenGraph (`locale: ro_RO`, image alt),
   Twitter, canonical + `alternates.languages["ro-RO"]`, icons, manifest, robots /
   `googleBot` preview caps, `formatDetection`, `publisher` = legalName.
-- `generateViewport()` → `Viewport` with `themeColor`.
+- `generateViewport()` → `Viewport` with `themeColor` and `viewportFit: "cover"`
+(so sticky pins can use `env(safe-area-inset-bottom)` clear of Safari’s chrome).
+
+Sticky full-viewport pins (chain, process, works) use **`h-svh md:h-lvh`** — the
+small viewport on phones so bottom copy isn’t clipped by the browser bar; large
+viewport from `md` up.
 
 Root layout uses a title **template** (`%s · flowdotcom`). Child routes pass a
 **segment only** (`Servicii`, `Colaborare`) so the brand is not doubled; home

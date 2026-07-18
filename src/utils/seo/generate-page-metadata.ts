@@ -124,5 +124,8 @@ export function generateViewport(): Viewport {
     themeColor: siteConfig.themeColor,
     width: "device-width",
     initialScale: 1,
+    // Lets `env(safe-area-inset-*)` apply on notched / Safari-chrome phones so
+    // sticky pin UIs can pad clear of the bottom browser bar.
+    viewportFit: "cover",
   };
 }

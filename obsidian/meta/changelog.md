@@ -10,6 +10,13 @@ This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-07-18
 
+- **Mobile sticky pins / Safari chrome** (`services-process`, `chain`, `works`,
+  viewport): sticky layers used `h-lvh`, so on Safari Mobile the bottom UI sat
+  under the browser bar (and process steps 1–4 stacked too tall in one column).
+  Pins → `h-svh md:h-lvh`; bottom `env(safe-area-inset-bottom)` padding; process
+  grid is 2×2 on phones; chain pin progress uses `section.clientHeight`.
+  `viewportFit: "cover"` on the root viewport export.
+
 - **Mobile nav menu** (`site-nav.tsx`): page links were `hidden md:flex` only — phones
   had brand + CTA, no way to reach Servicii/Colaborare/Acasă from the header.
   Added a Menu/X pill (`md:hidden`) that opens a spring glass panel with the same

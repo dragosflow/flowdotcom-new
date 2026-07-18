@@ -130,7 +130,7 @@ export const Chain = ({ content }: ChainProps) => {
         const section = sectionRef.current;
         const wrap = section?.parentElement;
         if (!section || !wrap) return;
-        const vh = window.innerHeight || 1;
+        const vh = section.clientHeight || window.innerHeight || 1;
         const wt = wrap.getBoundingClientRect().top;
         const pinDist = Math.max(1, wrap.offsetHeight - vh);
         const target =
@@ -162,7 +162,7 @@ export const Chain = ({ content }: ChainProps) => {
       <section
         ref={sectionRef}
         aria-labelledby="chain-title"
-        className="sticky top-0 z-10 h-lvh overflow-hidden"
+        className="sticky top-0 z-10 h-svh overflow-hidden md:h-lvh"
       >
         <canvas
           ref={bgRef}
@@ -176,8 +176,8 @@ export const Chain = ({ content }: ChainProps) => {
         />
 
         {/* Marketing UI overlaid on the chrome stage. Top margin clears the fixed
-            site header (see home.tsx / site-nav.tsx). */}
-        <div className="absolute inset-0 z-10 flex flex-col px-6 pb-6 pt-5 text-white md:px-10 md:pb-10 lg:px-12 lg:pb-12">
+            site header; bottom padding clears Safari’s chrome / home indicator. */}
+        <div className="absolute inset-0 z-10 flex flex-col px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5 text-white md:px-10 md:pb-10 lg:px-12 lg:pb-12">
           <AnimatedHeading
             as="h2"
             id="chain-title"
