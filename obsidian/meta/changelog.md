@@ -10,6 +10,12 @@ This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-07-18
 
+- **Titles / descriptions cleaned** (`page.tsx`, `servicii`, `colaborare`,
+  `site.ts`): layout template `%s · flowdotcom` was doubling brand on routes that
+  already said “flowdotcom”; Colaborare also stuffed `FLOWDOTCOM S.R.L` into
+  `<title>`. Segment titles + absolute home title; descriptions brand-first;
+  SRL stays in JSON-LD / publisher / footer.
+
 - **Removed cookie consent** (`layout.tsx`, deleted `components/common/Cookie/`):
   no banner/modal; vault refs updated (data-flow, system-overview, common catalog,
   routing, tech-stack, folder-structure).

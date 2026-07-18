@@ -6,11 +6,12 @@ import { siteConfig } from "@/lib/site";
 import { generateMetadata as buildMetadata } from "@/utils/seo/generate-page-metadata";
 import { getWebPageStructuredData } from "@/utils/seo/structured-data";
 
+/** Absolute — home already includes the brand; skip the layout `%s · flowdotcom` template. */
 const title = `${siteConfig.name} — ${siteConfig.tagline}`;
 const description = siteConfig.description;
 
 export const metadata: Metadata = buildMetadata({
-  title,
+  title: { absolute: title },
   description,
   url: "/",
 });

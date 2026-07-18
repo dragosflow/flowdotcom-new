@@ -40,8 +40,12 @@ export const viewport = generateViewport();
   `googleBot` preview caps, `formatDetection`, `publisher` = legalName.
 - `generateViewport()` → `Viewport` with `themeColor`.
 
-Root layout uses a title **template** (`%s · flowdotcom`); `/`, `/servicii`,
-`/colaborare` each export route metadata + page-level JSON-LD.
+Root layout uses a title **template** (`%s · flowdotcom`). Child routes pass a
+**segment only** (`Servicii`, `Colaborare`) so the brand is not doubled; home
+uses `{ absolute: "flowdotcom — …" }` because it already includes the brand.
+`legalName` (FLOWDOTCOM S.R.L) stays in JSON-LD / `publisher` / footer — not in
+the document `<title>`. Page descriptions stay brand-first (no
+`S.R.L (flowdotcom)` stuffing).
 
 ## robots.txt & sitemap.xml
 

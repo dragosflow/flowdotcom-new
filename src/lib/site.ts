@@ -17,7 +17,7 @@ export const siteConfig = {
   /** Short brand promise — used in the page title, PWA, and JSON-LD slogan. */
   tagline: "Produs construit pentru business.",
   description:
-    "Site-ul oficial al FLOWDOTCOM S.R.L (flowdotcom). Construim aplicații web, mobile și sisteme interne — plus animații web și scene 3D / WebGL — pentru afaceri care vor claritate, viteză și creștere. De la idee la lansare, într-un singur flux.",
+    "Construim aplicații web, mobile și sisteme interne — plus animații web și scene 3D / WebGL — pentru afaceri care vor claritate, viteză și creștere. De la idee la lansare, într-un singur flux.",
   /**
    * Topics / capabilities for JSON-LD `knowsAbout` and AIO entity grounding.
    * Keep aligned with visible services copy.

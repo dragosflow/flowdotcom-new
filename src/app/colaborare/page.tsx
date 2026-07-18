@@ -3,15 +3,18 @@ import { CollaborationView } from "@/views/collaboration";
 import { collaborationContent } from "@/data/mocks/collaboration";
 import { footerContent } from "@/data/mocks/contact";
 import { JsonLd } from "@/components/common/json-ld";
+import { siteConfig } from "@/lib/site";
 import { generateMetadata as buildMetadata } from "@/utils/seo/generate-page-metadata";
 import {
   getBreadcrumbStructuredData,
   getWebPageStructuredData,
 } from "@/utils/seo/structured-data";
 
-const title = "Colaborare — flowdotcom | FLOWDOTCOM S.R.L";
+/** Segment only — layout template appends `· flowdotcom`. */
+const title = "Colaborare";
+const documentTitle = `${title} · ${siteConfig.name}`;
 const description =
-  "Contactează FLOWDOTCOM S.R.L (flowdotcom) pentru următorul produs digital: web, mobile, animații sau experiențe 3D. Brief scurt, propunere clară, build împreună.";
+  "Contactează flowdotcom pentru următorul produs digital: web, mobile, animații sau experiențe 3D. Brief scurt, propunere clară, build împreună.";
 
 export const metadata: Metadata = buildMetadata({
   title,
@@ -26,12 +29,12 @@ export default function ColaborarePage() {
         data={[
           getWebPageStructuredData({
             path: "/colaborare",
-            title,
+            title: documentTitle,
             description,
           }),
           getBreadcrumbStructuredData([
             { name: "Acasă", path: "/" },
-            { name: "Colaborare", path: "/colaborare" },
+            { name: title, path: "/colaborare" },
           ]),
         ]}
       />
