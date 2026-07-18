@@ -183,7 +183,7 @@ export const Hero = ({ content }: HeroProps) => {
                 <UnderlineLink
                   href={secondaryCta.href}
                   internal={false}
-                  className='text-base text-white hover:text-white/80 sm:text-sm'
+                  className="text-base text-white hover:text-white/80 sm:text-sm"
                 >
                   {secondaryCta.label}
                 </UnderlineLink>

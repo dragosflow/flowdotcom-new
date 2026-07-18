@@ -134,7 +134,10 @@ as inline utilities:
   sits alone on a row (hero, product, services intro, footer, forms). Desktop matches
   the compact `text-sm` pill.
 - **Base (inline / crowded):** keep `sm:` sizes; nav uses `h-12`/`text-base` on mobile
-  and `h-11`/`text-sm` from `sm`.
+  and `h-11`/`text-sm` from `sm`. Below `md`, the inline links pill is hidden — a Menu
+  button opens a spring panel (`site-nav.tsx`) with Acasă / Servicii / Colaborare.
+  Mobile right cluster: phone icon (`tel:` from CTA or `siteConfig.contact`)
+  immediately left of Menu; desktop keeps the text CTA on the right.
 - **Filled:** add a solid fill + contrasting text — `bg-black text-white hover:bg-black/90`
   on light sections; the hero's on-dark primary is `bg-white text-black`.
 - **Outline:** same base but `border` + transparent fill, inheriting/among the section's

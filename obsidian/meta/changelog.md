@@ -10,6 +10,13 @@ This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-07-18
 
+- **Mobile nav menu** (`site-nav.tsx`): page links were `hidden md:flex` only — phones
+  had brand + CTA, no way to reach Servicii/Colaborare/Acasă from the header.
+  Added a Menu/X pill (`md:hidden`) that opens a spring glass panel with the same
+  links; closes on route change, Escape, or backdrop tap. On mobile the right
+  cluster is **phone icon** (immediately left of Menu) + Menu; desktop keeps the
+  text CTA (“Vreau un proiect” / “Sună acum”).
+
 - **Product cards + solo CTAs (mobile)** (`product.tsx`, CTAs, `globals.css`): home
   product bento dropped `min-h-[26rem]` / `justify-between` on small screens (cards
   hug content with `gap-5`); body copy `text-lg`. Solo primary CTAs → `text-lg` /
