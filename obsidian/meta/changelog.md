@@ -23,13 +23,26 @@ This is a human-curated log — not a mirror of `git log`.
   in the panel. Chain model size unchanged.
 
 - **Brand logo SVG** (`brand-logo.tsx`, `public/assets/brand/flowdotcom-logo.svg`):
-  Zap + “flowdotcom” lockup for assets / preloader; **header keeps** Lucide
-  `Zap` + text (same size as before). SVG gap tightened (4px) and viewBox cropped
-  to `90×24` (no trailing dead space).
+  Zap + outlined Mulish “flowdotcom” paths (no `<text>`), 4px gap, viewBox `98×24`
+  cropped to content — no clipped “m”, no trailing dead space. Header still uses
+  Lucide `Zap` + live text.
 
 - **Favicon = Zap** (`public/favicon.ico`, `favicon-16/32.png`, apple/android
   icons): white Lucide bolt on `#04070f` rounded square; replaces the old starter
   icons. Source: `public/assets/brand/favicon-zap.svg`.
+
+- **AIO entity: FLOWDOTCOM S.R.L** (`site.ts`, `structured-data.ts`, footer):
+  `legalName` in site config; JSON-LD Organization `legalName` + `alternateName`;
+  meta description names the SRL; footer shows company in contact +
+  `entityNote` (“site-ul oficial al FLOWDOTCOM S.R.L”). Legal lines sit on a
+  white strip with black text for contrast on the dark footer.
+
+- **SEO / AIO pass** (`site.ts`, `generate-page-metadata.ts`, `structured-data.ts`,
+  `json-ld.tsx`, pages, `robots.ts`, `layout.tsx`, home/services copy): richer
+  description + `knowsAbout` (animații / 3D WebGL); OG `ro_RO`; googleBot preview
+  caps; root JSON-LD adds ProfessionalService + Service ItemList; per-page
+  WebPage + BreadcrumbList; `lang=ro`; skip link; AI crawlers allowed in robots;
+  light copy clarifying animations & 3D on home/servicii.
 
 - **Custom cursor perf** (`custom-cursor.tsx`): dropped react-spring + perpetual
   ticker + full-viewport `mix-blend-difference`. Core snaps on `pointermove`;

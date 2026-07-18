@@ -40,10 +40,14 @@ export interface FooterContent {
   /** Single contact block (phone / email / address) — not duplicated elsewhere. */
   contact: {
     title: string;
+    /** Legal / trading entity line (AIO-visible). */
+    company: string;
     address: string;
     phone: string;
     email: string;
   };
+  /** Short plain-language operator line for AIO / crawlers. */
+  entityNote: string;
   copyright: string;
   credit: string;
 }
@@ -65,10 +69,13 @@ export const footerContent: FooterContent = {
   },
   contact: {
     title: "Contact",
+    company: "FLOWDOTCOM S.R.L",
     address: "România",
     phone: "0770571362",
     email: "dragosflow@yahoo.com",
   },
-  copyright: "© 2026 flowdotcom. All rights reserved.",
+  entityNote:
+    "Acesta este site-ul oficial al FLOWDOTCOM S.R.L, operat sub brandul flowdotcom.",
+  copyright: "© 2026 FLOWDOTCOM S.R.L. Toate drepturile rezervate.",
   credit: "Product design and development",
 };

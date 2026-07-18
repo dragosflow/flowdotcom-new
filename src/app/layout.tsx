@@ -8,6 +8,7 @@ import {
 import { getSiteStructuredData } from "@/utils/seo/structured-data";
 import { siteConfig } from "@/lib/site";
 
+import { JsonLd } from "@/components/common/json-ld";
 import { CustomCursor } from "@/components/common/cursor";
 import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
@@ -27,9 +28,14 @@ const mulish = localFont({
   ],
 });
 
-// Homepage title carries the brand + tagline (keyword-rich); subpages pass their own.
+// Default document metadata — routes override title/description as needed.
 export const metadata: Metadata = generateMetadata({
-  title: `${siteConfig.name} — ${siteConfig.tagline}`,
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  url: "/",
 });
 export const viewport: Viewport = generateViewport();
 
@@ -39,14 +45,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ro">
       <body className={`${mulish.variable}`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getSiteStructuredData()),
-          }}
-        />
+        <JsonLd data={getSiteStructuredData()} />
+        <a
+          href="#top"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+        >
+          Sari la conținut
+        </a>
         <Preloader />
         <PageTransition />
         {/* Outside ScrollLayout so position:fixed isn't relative to a transformed ancestor. */}

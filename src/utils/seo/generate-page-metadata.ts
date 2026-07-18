@@ -15,7 +15,7 @@ import { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site";
 
 interface MetadataProps {
-  title?: string;
+  title?: Metadata["title"];
   description?: string;
   /** Canonical path (e.g. `/about`) or absolute URL for this page. */
   url?: string;
@@ -26,6 +26,18 @@ interface MetadataProps {
   siteName?: string;
 }
 
+const titleAsString = (title: Metadata["title"] | undefined): string => {
+  if (typeof title === "string") return title;
+  if (!title || typeof title !== "object") return siteConfig.name;
+  if ("default" in title && typeof title.default === "string") {
+    return title.default;
+  }
+  if ("absolute" in title && typeof title.absolute === "string") {
+    return title.absolute;
+  }
+  return siteConfig.name;
+};
+
 export function generateMetadata({
   title = siteConfig.name,
   description = siteConfig.description,
@@ -35,30 +47,43 @@ export function generateMetadata({
   author = siteConfig.author,
   siteName = siteConfig.name,
 }: MetadataProps = {}): Metadata {
+  const titleText = titleAsString(title);
   return {
     // Resolves every relative URL below to an absolute one.
     metadataBase: new URL(siteConfig.url),
     title,
     description,
-    authors: [{ name: author }],
+    applicationName: siteConfig.name,
+    authors: [{ name: author, url: siteConfig.url }],
     creator: author,
-    publisher: author,
+    publisher: siteConfig.legalName,
+    category: "technology",
     alternates: {
       canonical: url,
+      languages: {
+        "ro-RO": url,
+      },
     },
     openGraph: {
-      title,
+      title: titleText,
       description,
       url,
       siteName,
       // Dimensions must match the real asset; 1200×630 is the ideal size.
-      images: [{ url: ogImage, width: 900, height: 600 }],
-      locale: "en_US",
+      images: [
+        {
+          url: ogImage,
+          width: 900,
+          height: 600,
+          alt: `${siteConfig.legalName} — ${siteConfig.tagline}`,
+        },
+      ],
+      locale: siteConfig.locale,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: titleText,
       description,
       site: twitterHandle,
       creator: twitterHandle,
@@ -78,6 +103,18 @@ export function generateMetadata({
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    formatDetection: {
+      telephone: true,
+      email: true,
+      address: true,
     },
   };
 }

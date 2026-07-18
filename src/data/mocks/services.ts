@@ -75,7 +75,7 @@ export const servicesContent: ServicesContent = {
   intro: {
     labelId: "services-intro",
     heading: "De la idee la produs — ce putem construi?",
-    body: "Strategie, design și dezvoltare end-to-end — claritate pe obiective, ritm transparent și livrabile pe care le poți măsura.",
+    body: "Strategie, design și dezvoltare end-to-end — inclusiv animații web și scene 3D / WebGL — cu claritate pe obiective, ritm transparent și livrabile pe care le poți măsura.",
     cta: { label: "Sună acum", href: "tel:+40770571362" },
   },
   process: {

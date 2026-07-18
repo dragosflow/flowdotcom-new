@@ -38,6 +38,7 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
     copyright,
     credit,
     tagline,
+    entityNote,
   } = content;
 
   const colTitle =
@@ -113,19 +114,20 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
 
           <div>
             <h3 className={colTitle}>{contact.title}</h3>
-            <address className='flex flex-col gap-2 text-sm not-italic text-footer-fg/80'>
+            <address className="flex flex-col gap-2 text-sm not-italic text-footer-fg/80">
+              <span className="font-medium text-footer-fg">{contact.company}</span>
               <span>{contact.address}</span>
               <UnderlineLink
                 href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
                 internal={false}
-                className='hover:text-footer-fg'
+                className="hover:text-footer-fg"
               >
                 {contact.phone}
               </UnderlineLink>
               <UnderlineLink
                 href={`mailto:${contact.email}`}
                 internal={false}
-                className='hover:text-footer-fg'
+                className="hover:text-footer-fg"
               >
                 {contact.email}
               </UnderlineLink>
@@ -133,11 +135,14 @@ export const SiteFooter = ({ content }: SiteFooterProps) => {
           </div>
         </nav>
 
-        <div className='-mx-6 mt-10 flex flex-col gap-2 border-t border-footer-fg/10 px-6 pt-6 text-xs text-footer-muted md:-mx-10 md:flex-row md:items-center md:justify-between md:px-10 lg:-mx-12 lg:px-12'>
-          <p>{copyright}</p>
-          <p className='md:text-right'>
-            <span className='text-footer-fg/50'>{tagline}</span>
-            <span className='mx-2 text-footer-fg/25' aria-hidden='true'>
+        <div className="-mx-6 mt-10 flex flex-col gap-3 border-t border-footer-fg/10 px-6 pt-6 text-xs md:-mx-10 md:px-10 lg:-mx-12 lg:px-12">
+          <div className="flex flex-col gap-2 rounded-2xl bg-white px-4 py-3 text-black md:px-5">
+            <p>{entityNote}</p>
+            <p>{copyright}</p>
+          </div>
+          <p className="text-footer-muted md:text-right">
+            <span className="text-footer-fg/50">{tagline}</span>
+            <span className="mx-2 text-footer-fg/25" aria-hidden="true">
               ·
             </span>
             {credit}

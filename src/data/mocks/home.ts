@@ -45,11 +45,11 @@ export const homeContent: HomeContent = {
     insightTitle:
       "Acoperim end-to-end strategia de produs, designul experienței, dezvoltarea tehnică și optimizarea continuă post-lansare.",
     insightBody:
-      "Concepem și dezvoltăm experiențe digitale premium, de la primul wireframe până la produsul live. Pentru companii care vor claritate, viteză și impact business măsurabil.",
+      "Concepem și dezvoltăm experiențe digitale premium — web, mobile și sisteme interne — inclusiv animații și scene 3D / WebGL, de la primul wireframe până la produsul live. Pentru companii care vor claritate, viteză și impact business măsurabil.",
     stats: [
       { value: "Web", label: "Platforme & site-uri" },
       { value: "App", label: "Aplicații mobile" },
-      { value: "B2B", label: "Sisteme interne" },
+      { value: "3D", label: "Animații & WebGL" },
     ],
   },
   logos: {
@@ -108,8 +108,8 @@ export const homeContent: HomeContent = {
     },
     data: {
       label: "Ce construim",
-      value: "Web & App",
-      desc: "Platforme web, aplicații mobile și sisteme interne gândite pentru business.",
+      value: "Web & 3D",
+      desc: "Platforme web, aplicații mobile, sisteme interne, animații și experiențe 3D gândite pentru business.",
     },
     reach: { label: "Tehnologii", value: "12+" },
   },

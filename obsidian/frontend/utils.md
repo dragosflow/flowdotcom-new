@@ -46,8 +46,10 @@ used internally by the scroll/animation system. Marked `@ts-nocheck`. `#do-not-m
 
 ## `seo/structured-data.ts`
 
-`getSiteStructuredData()` — builds the `Organization` + `WebSite` JSON-LD graph
-rendered by the root layout. See [[seo-metadata]].
+`getSiteStructuredData()` / `getWebPageStructuredData()` /
+`getBreadcrumbStructuredData()` — JSON-LD graphs for Organization + services
+catalog, per-page WebPage, and breadcrumbs. Emit via `<JsonLd>`. See
+[[seo-metadata]].
 
 ## `lib/focus-ring.ts`
 

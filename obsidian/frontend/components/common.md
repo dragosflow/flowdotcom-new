@@ -12,7 +12,8 @@ providers. Conventions: [[component-conventions]].
 
 | Component     | File               | Role                                                                 |
 | ------------- | ------------------ | -------------------------------------------------------------------- |
-| `<BrandLogo>` | `brand-logo.tsx`   | SVG lockup — Lucide Zap + “flowdotcom” wordmark (`currentColor`). Used in preloader / static asset (`public/assets/brand/flowdotcom-logo.svg`). Header brand mark stays Lucide `Zap` + text. Favicon (Zap only): `public/favicon.ico` / `public/assets/brand/favicon-zap.svg`. |
+| `<BrandLogo>` | `brand-logo.tsx`   | SVG lockup — Lucide Zap + Mulish-outlined “flowdotcom” paths (`currentColor`), viewBox `98×24`. Static: `public/assets/brand/flowdotcom-logo.svg`. Header stays Lucide `Zap` + text. Favicon: `public/favicon.ico` / `favicon-zap.svg`. |
+| `<JsonLd>`    | `json-ld.tsx`      | Server Component — emits one or more `application/ld+json` scripts from [[seo-metadata\|structured-data]] helpers. |
 
 ## Grid — adaptive scaling (`grid/`)
 

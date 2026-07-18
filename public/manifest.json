@@ -1,7 +1,8 @@
 {
-  "name": "flowdotcom",
+  "name": "flowdotcom — FLOWDOTCOM S.R.L",
   "short_name": "flowdotcom",
-  "description": "flowdotcom construiește aplicații digitale de calitate — mobile, web și desktop — pentru afaceri care vor să crească.",
+  "description": "Site-ul oficial al FLOWDOTCOM S.R.L (flowdotcom). Aplicații web, mobile, animații și scene 3D / WebGL pentru afaceri care vor să crească.",
+  "lang": "ro-RO",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -11,6 +12,11 @@
       "src": "/favicon.ico",
       "sizes": "any",
       "type": "image/x-icon"
+    },
+    {
+      "src": "/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ]
 }
