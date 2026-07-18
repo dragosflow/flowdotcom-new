@@ -27,9 +27,11 @@ This is a human-curated log — not a mirror of `git log`.
   cropped to content — no clipped “m”, no trailing dead space. Header still uses
   Lucide `Zap` + live text.
 
-- **Favicon = Zap** (`public/favicon.ico`, `favicon-16/32.png`, apple/android
-  icons): white Lucide bolt on `#04070f` rounded square; replaces the old starter
-  icons. Source: `public/assets/brand/favicon-zap.svg`.
+- **Favicon = Zap** (`public/favicon.ico`, `src/app/favicon.ico`,
+  `favicon-16/32.png`, apple/android icons): white Lucide bolt on `#04070f`
+  rounded square. Next.js serves `app/favicon.ico` at `/favicon.ico` (it was
+  still the old starter 25KB file, which shadowed `public/`); both copies are
+  the zap now. Source: `public/assets/brand/favicon-zap.svg`.
 
 - **AIO entity: FLOWDOTCOM S.R.L** (`site.ts`, `structured-data.ts`, footer):
   `legalName` in site config; JSON-LD Organization `legalName` + `alternateName`;

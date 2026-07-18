@@ -114,7 +114,7 @@ public/
 | Mock/placeholder data | `src/data/mocks/<page-name>.ts` (create folder as needed) |
 | A third-party client init | `lib/` |
 | A site content asset (image, video) | `public/assets/<section>/` — one folder per section |
-| A favicon / icon / OG / manifest asset | `public/` root |
+| A favicon / icon / OG / manifest asset | `public/` root; also keep `src/app/favicon.ico` in sync (App Router serves it first at `/favicon.ico`) |
 
 ## Do-not-modify zones
 

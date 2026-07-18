@@ -86,6 +86,12 @@ The `public/` **root** holds meta/PWA/SEO assets — favicons, Android/Apple ico
 `manifest.json`, `browserconfig.xml`, `open-graph.png`. Content assets under
 `public/assets/<section>/` — see [[folder-structure]].
 
+> [!important]
+> Next.js App Router also picks up **`src/app/favicon.ico`** and injects it as
+> the primary `<link rel="icon">` (hashed query). That file **wins over**
+> `public/favicon.ico` for `GET /favicon.ico`. Keep `app/favicon.ico` and
+> `public/favicon.ico` in sync when changing the brand mark.
+
 > [!note] `#todo`
 > `open-graph.png` is **900×600** (metadata matches). Ideal OG size is
 > **1200×630** — swap the asset and update dimensions in
