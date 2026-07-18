@@ -62,16 +62,16 @@ export const ServicesProcess = ({
         className="pointer-events-none absolute inset-0 block h-full w-full"
       />
 
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-16 md:px-12 md:py-20 lg:px-page-gutter">
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-center px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-16 md:px-12 md:py-20 lg:px-page-gutter">
         <AnimatedHeading
           as="h2"
           id={`${labelId}-heading`}
-          className="mb-6 max-w-3xl text-[2rem] font-light leading-[0.95] tracking-tight sm:mb-10 sm:text-[2.5rem] lg:text-[3.5rem]"
+          className="mb-6 max-w-3xl shrink-0 text-[2rem] font-light leading-[0.95] tracking-tight sm:mb-10 sm:text-[2.5rem] lg:text-[3.5rem]"
         >
           {heading}
         </AnimatedHeading>
 
-        <ol className="grid grid-cols-2 gap-0 lg:grid-cols-4 lg:divide-x lg:divide-white/10">
+        <ol className="grid min-h-0 flex-1 grid-cols-2 grid-rows-2 lg:flex-none lg:grid-cols-4 lg:grid-rows-1 lg:divide-x lg:divide-white/10">
           {steps.map((step, i) => (
             <ProcessStepCard key={step.step} step={step} index={i} />
           ))}
@@ -102,16 +102,16 @@ const ProcessStepCard = ({
       to={{ opacity: 1, x: 0 }}
       config={{ tension: 200, friction: 28 }}
       delayIn={index * 90}
-      className="list-none"
+      className="list-none h-full min-h-0"
     >
       <article
         ref={ref}
-        className="flex min-h-0 flex-col justify-between border-b border-white/10 px-1 py-4 sm:min-h-[16rem] sm:border-b-0 sm:px-5 sm:py-6 lg:px-7"
+        className="flex h-full min-h-0 flex-col border-b border-white/10 px-1 py-4 sm:min-h-[16rem] sm:border-b-0 sm:px-5 sm:py-6 lg:px-7"
       >
         <Hover
           trigger={ref}
           tag="div"
-          className="flex h-full flex-col justify-between"
+          className="flex h-full min-h-0 flex-col justify-between"
           from={{ transform: "scale(1)" }}
           to={{ transform: "scale(1.03)" }}
           config={HOVER_CONFIG}

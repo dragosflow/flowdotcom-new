@@ -14,8 +14,9 @@ This is a human-curated log — not a mirror of `git log`.
   viewport): sticky layers used `h-lvh`, so on Safari Mobile the bottom UI sat
   under the browser bar (and process steps 1–4 stacked too tall in one column).
   Pins → `h-svh md:h-lvh`; bottom `env(safe-area-inset-bottom)` padding; process
-  grid is 2×2 on phones; chain pin progress uses `section.clientHeight`.
-  `viewportFit: "cover"` on the root viewport export.
+  grid is 2×2 equal rows on phones (`grid-rows-2` + `h-full` cards); chain pin
+  progress uses `section.clientHeight`. `viewportFit: "cover"` on the root
+  viewport export.
 
 - **Mobile nav menu** (`site-nav.tsx`): page links were `hidden md:flex` only — phones
   had brand + CTA, no way to reach Servicii/Colaborare/Acasă from the header.
