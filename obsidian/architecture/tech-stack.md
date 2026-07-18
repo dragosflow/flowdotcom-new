@@ -89,11 +89,7 @@ See [[smooth-scroll]] and [[data-flow]].
 
 | Package         | Version  | Role                                                                 |
 | --------------- | -------- | -------------------------------------------------------------------- |
-| `lucide-react`  | `^1.25.0` | Icon set for UI marks (services, CTAs, nav zap, cookie close, …). Brand tech logos in the logo marquee stay custom SVGs. |
-
-Cookie consent is an in-house component (`src/components/common/Cookie/`) built on
-Zustand + `@react-spring/web` — the former `react-cookie-consent` package was
-removed. See [[components/common]].
+| `lucide-react`  | `^1.25.0` | Icon set for UI marks (services, CTAs, nav zap, …). Brand tech logos in the logo marquee stay custom SVGs. |
 
 ## Tooling
 

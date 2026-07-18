@@ -15,8 +15,12 @@ The root layout (`src/app/layout.tsx`) wraps everything in this exact order.
 
 ```
 <html> <body>
+  <Preloader />
+  <PageTransition />
+  <CustomCursor />      ← outside ScrollLayout (fixed positioning)
   <ScrollLayout>        ← Lenis smooth scroll + scroll state store
-    <LazyCookie />      ← cookie consent banner + preferences modal
+    <AdaptiveGrid />
+    <ReducedMotion />
     {children}          ← the routed page
   </ScrollLayout>
 </body> </html>

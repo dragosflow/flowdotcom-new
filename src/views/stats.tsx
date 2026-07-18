@@ -42,10 +42,13 @@ const STAT_NUM =
 const HoverCard = ({
   style,
   className,
+  shellClassName = "h-full",
   children,
 }: {
   style: React.ComponentProps<typeof animated.article>["style"];
   className: string;
+  /** Classes on the outer `<Hover>` shell (grid/flex stretch). */
+  shellClassName?: string;
   children: ReactNode;
 }) => {
   const ref = useRef<HTMLElement>(null);
@@ -53,7 +56,7 @@ const HoverCard = ({
     <Hover
       trigger={ref}
       tag="div"
-      className="h-full"
+      className={shellClassName}
       from={{ transform: "scale(1)" }}
       to={{ transform: "scale(1.015)" }}
       config={{ tension: 280, friction: 22 }}
@@ -87,10 +90,13 @@ export const Stats = ({ content }: StatsProps) => {
       aria-label={content.label}
       className="bg-hero-page px-6 pb-32 md:px-12 lg:px-page-gutter"
     >
-      <div ref={rootRef} className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div
+        ref={rootRef}
+        className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3"
+      >
         <HoverCard
           style={cardStyle(0)}
-          className="relative flex min-h-[32rem] flex-col justify-end overflow-hidden rounded-3xl bg-card-blue p-7 text-black [will-change:transform,opacity]"
+          className="relative flex h-full min-h-[32rem] flex-col justify-end overflow-hidden rounded-3xl bg-card-blue p-7 text-black [will-change:transform,opacity]"
         >
           <Image
             src="/assets/images/2nd/collaboration.jpg"
@@ -119,7 +125,7 @@ export const Stats = ({ content }: StatsProps) => {
 
         <HoverCard
           style={cardStyle(1)}
-          className="flex min-h-[32rem] flex-col rounded-3xl bg-card-gray p-8 text-black [will-change:transform,opacity]"
+          className="flex h-full min-h-[32rem] flex-col rounded-3xl bg-card-gray p-8 text-black [will-change:transform,opacity]"
         >
           <p className="text-base leading-relaxed text-black/55">
             {commitment.eyebrow}
@@ -149,10 +155,11 @@ export const Stats = ({ content }: StatsProps) => {
           </div>
         </HoverCard>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex h-full min-h-[32rem] flex-col gap-6">
           <HoverCard
             style={cardStyle(2)}
-            className="flex flex-1 flex-col rounded-3xl bg-card-blue p-8 text-white [will-change:transform,opacity]"
+            shellClassName="flex min-h-0 flex-1 flex-col"
+            className="flex h-full min-h-0 flex-1 flex-col rounded-3xl bg-card-blue p-8 text-white [will-change:transform,opacity]"
           >
             <p className="text-sm text-white/70">{data.label}</p>
             <div className={`mt-4 ${STAT_NUM}`}>{data.value}</div>
@@ -162,6 +169,7 @@ export const Stats = ({ content }: StatsProps) => {
           </HoverCard>
           <HoverCard
             style={cardStyle(3)}
+            shellClassName="shrink-0"
             className="flex items-center justify-between rounded-3xl bg-card-dark px-8 py-10 text-white [will-change:transform,opacity]"
           >
             <span className="text-lg text-white/55">{reach.label}</span>

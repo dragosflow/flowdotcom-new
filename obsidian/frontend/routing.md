@@ -63,7 +63,7 @@ here on route `/` (see [[ai-agent-guide]] / [[new-page]]).
 ## Layouts
 
 - `src/app/layout.tsx` — the **root layout**. Holds the provider tree
-  (`ScrollLayout` → `AdaptiveGrid` / `ReducedMotion` / `Cookie` → children),
+  (`ScrollLayout` → `AdaptiveGrid` / `ReducedMotion` → children),
   loads the Onest font and `globals.css`, exports `metadata` + `viewport`, and
   renders the JSON-LD script. See [[data-flow]].
 - Reusable layout *wrappers* (not route layouts) live in `src/layouts/` —

@@ -59,7 +59,7 @@ controls (nav, CTAs, form-adjacent links).
 Helpers for nav hover previews: `isInAppPageHref`, `readNavPreviewFlag`,
 `navPreviewSrc`. Screenshots live in `public/assets/images/nav-preview/` (regenerate
 with `yarn capture-nav-previews` while `yarn dev` is running). `?nav-preview=1`
-still strips preloader / transition / cookies when capturing.
+still strips preloader / transition when capturing.
 
 ## `lib/three/claim-canvas.ts`
 

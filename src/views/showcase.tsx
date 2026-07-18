@@ -1,15 +1,14 @@
 "use client";
 
-// Row of full-height columns split by thin vertical lines. On hover a column's photo
-// reveals bottom-to-top through a clip-path mask, and a white semi-transparent
-// gradient scales up from the base (behind the label) so the dark caption keeps good
-// contrast over the image — both are springs via <Hover> (ADR-0002). Desktop also
-// leaves a short image trail following the pointer (MediaTrail).
-import { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+// Row of full-height columns split by thin vertical lines. On hover a column's
+// photo reveals bottom-to-top through a clip-path mask, and a white
+// semi-transparent gradient scales up from the base (behind the label) so the
+// dark caption keeps good contrast over the image — both are springs via
+// <Hover> (ADR-0002).
+import { useRef } from "react";
 import Image from "next/image";
 import { Hover } from "@/components/animation/springs/hover";
 import { AnimatedHeading } from "@/components/common/animated-heading";
-import { MediaTrail } from "@/components/common/media-trail";
 
 export interface ShowcaseItem {
   prefix: string;
@@ -31,36 +30,13 @@ const REVEAL_CONFIG = { tension: 170, friction: 26 };
 
 const Column = ({ prefix, name, image }: ShowcaseItem) => {
   const ref = useRef<HTMLElement>(null);
-  const [hot, setHot] = useState(false);
-  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
-  const pending = useRef<{ x: number; y: number } | null>(null);
-  const raf = useRef(0);
-
-  const onMove = (e: ReactMouseEvent) => {
-    pending.current = { x: e.clientX, y: e.clientY };
-    if (raf.current) return;
-    raf.current = requestAnimationFrame(() => {
-      raf.current = 0;
-      if (pending.current) setPoint(pending.current);
-    });
-  };
 
   return (
     <article
       ref={ref}
       className="relative min-h-[38vh] overflow-hidden rounded-2xl lg:min-h-[85vh] lg:rounded-none"
       data-cursor="media"
-      onMouseEnter={() => setHot(true)}
-      onMouseLeave={() => {
-        setHot(false);
-        setPoint(null);
-        cancelAnimationFrame(raf.current);
-        raf.current = 0;
-      }}
-      onMouseMove={onMove}
     >
-      <MediaTrail src={image} active={hot} point={point} />
-
       <Image
         src={image}
         alt=""

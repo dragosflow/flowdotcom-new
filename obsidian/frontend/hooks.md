@@ -34,7 +34,7 @@ components — don't call them directly unless extending the engine.
 |------|------|------|
 | `useWindowWidth` / `useWindowHeight` / `useWindowSize` | `use-window-size.ts` | SSR-safe window dimensions — all three share **one** debounced (300 ms) `resize` listener via a `useSyncExternalStore` store |
 | `useAdaptiveGrid` | `use-adaptive-grid.ts` | Scales the root `<html>` font-size up while the viewport exceeds `baseWidth` — powers `<AdaptiveGrid>`, see [[components/common]] |
-| `useNavPreviewMode` | `use-nav-preview-mode.ts` | `true` when `?nav-preview=1` — used when capturing nav screenshots (strips preloader / transition / cookies) |
+| `useNavPreviewMode` | `use-nav-preview-mode.ts` | `true` when `?nav-preview=1` — used when capturing nav screenshots (strips preloader / transition) |
 | `usePreloader` | `use-preloader.ts` | Zustand store for first-load preloader done flag |
 
 > [!note] Shared render loop

@@ -8,6 +8,19 @@ updated: 2026-07-17
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-07-18
+
+- **Removed cookie consent** (`layout.tsx`, deleted `components/common/Cookie/`):
+  no banner/modal; vault refs updated (data-flow, system-overview, common catalog,
+  routing, tech-stack, folder-structure).
+
+- **Stats bento stretch** (`views/stats.tsx`): three columns share one row height
+  (`items-stretch` + `h-full`); right stack uses `flex-1` on the Hover shell so
+  the blue data card fills leftover space under the reach bar.
+
+- **Showcase: drop MediaTrail** (`views/showcase.tsx`): no more small image
+  following the pointer on column hover — clip-path photo reveal only.
+
 ## 2026-07-17
 
 - **Pointer polish + Lucide icons**: custom spring cursor (`CustomCursor`), magnetic

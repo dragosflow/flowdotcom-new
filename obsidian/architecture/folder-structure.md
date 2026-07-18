@@ -54,7 +54,7 @@ src/
 │
 ├── components/
 │   ├── ui/                 # Design-system primitives (Button, Input…) — empty, add as needed
-│   ├── common/             # Shared infrastructure (Cookie, grid, ReducedMotion, Skeletons)
+│   ├── common/             # Shared infrastructure (grid, ReducedMotion, Skeletons, cursor)
 │   └── animation/springs/  # ⚠️ Animation engine — #do-not-modify
 │
 ├── hooks/                  # Custom hooks, grouped by domain

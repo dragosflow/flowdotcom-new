@@ -8,7 +8,6 @@ import {
 import { getSiteStructuredData } from "@/utils/seo/structured-data";
 import { siteConfig } from "@/lib/site";
 
-import { LazyCookie } from "@/components/common/Cookie";
 import { CustomCursor } from "@/components/common/cursor";
 import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
@@ -58,7 +57,6 @@ export default function RootLayout({
               fill large monitors instead of staying small. */}
           <AdaptiveGrid coef={1} />
           <ReducedMotion />
-          <LazyCookie />
           {children}
         </ScrollLayout>
       </body>
