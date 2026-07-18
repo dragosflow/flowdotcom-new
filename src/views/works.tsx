@@ -71,7 +71,8 @@ const cardFrame = (i: number, v: number) => {
   };
 };
 
-const scrimOpacity = (i: number, v: number) => Math.min(0.35, Math.abs(i - v) * 0.22);
+const scrimOpacity = (i: number, v: number) =>
+  Math.min(0.35, Math.abs(i - v) * 0.22);
 
 export const Works = ({ content }: WorksProps) => {
   const { items, heading, viewLabel } = content;
@@ -117,8 +118,10 @@ export const Works = ({ content }: WorksProps) => {
         if (idx !== idxRef.current) {
           idxRef.current = idx;
           if (indexElRef.current) indexElRef.current.textContent = pad(idx + 1);
-          if (nameElRef.current) nameElRef.current.textContent = items[idx].name;
-          if (yearElRef.current) yearElRef.current.textContent = items[idx].year;
+          if (nameElRef.current)
+            nameElRef.current.textContent = items[idx].name;
+          if (yearElRef.current)
+            yearElRef.current.textContent = items[idx].year;
           const link = linkElRef.current;
           if (link) {
             const href = items[idx].href;
@@ -143,19 +146,19 @@ export const Works = ({ content }: WorksProps) => {
     <section
       ref={sectionRef}
       aria-label={heading}
-      className="relative bg-card-dark text-white"
+      className='relative bg-card-dark text-white'
       style={{ height: `${100 + (count - 1) * SCROLL_PER_CARD}vh` }}
     >
-      <div className="sticky top-0 h-lvh overflow-hidden">
+      <div className='sticky top-0 h-lvh overflow-hidden'>
         {/* Blurred backdrop — each card's photo, cross-fading to the focused one and
             drifting bottom-to-top with scroll. Dimmed so the cards + caption stay
             dominant. Sits behind everything (first child). */}
-        <div className="absolute inset-0" aria-hidden="true">
+        <div className='absolute inset-0' aria-hidden='true'>
           {items.map((item, i) => (
             <animated.div
               key={item.name}
               suppressHydrationWarning
-              className="absolute inset-0 [will-change:transform,opacity]"
+              className='absolute inset-0 [will-change:transform,opacity]'
               style={{
                 opacity: f.to((v) => backdropFrame(i, v).opacity),
                 transform: f.to((v) => backdropFrame(i, v).transform),
@@ -163,27 +166,27 @@ export const Works = ({ content }: WorksProps) => {
             >
               <Image
                 src={item.image}
-                alt=""
+                alt=''
                 fill
-                sizes="60vw"
+                sizes='60vw'
                 quality={30}
-                className="object-cover blur-2xl"
+                className='object-cover blur-2xl'
               />
             </animated.div>
           ))}
-          <div className="absolute inset-0 bg-card-dark/55" />
+          <div className='absolute inset-0 bg-card-dark/55' />
         </div>
 
         <AnimatedHeading
-          as="h2"
-          className="absolute inset-x-0 top-24 z-30 text-center text-[2rem] font-light leading-[0.95] tracking-tight sm:text-[2.5rem] lg:text-[4rem]"
+          as='h2'
+          className='absolute inset-x-0 top-24 z-30 text-center text-[2rem] font-light leading-[0.95] tracking-tight sm:text-[2.5rem] lg:text-[4rem]'
         >
           {heading}
         </AnimatedHeading>
 
         {/* 3D stage — cards on a cylinder; preserve-3d sorts them by depth
             (no animated z-index, which was causing the flicker/jitter). */}
-        <div className="absolute inset-0 [perspective:1900px] [transform-style:preserve-3d]">
+        <div className='absolute inset-0 [perspective:1900px] [transform-style:preserve-3d]'>
           {items.map((item, i) => (
             <animated.div
               key={item.name}
@@ -214,13 +217,13 @@ export const Works = ({ content }: WorksProps) => {
                 src={item.image}
                 alt={item.name}
                 fill
-                sizes="(max-width: 768px) 90vw, 736px"
-                className="object-cover object-center"
+                sizes='(max-width: 768px) 90vw, 736px'
+                className='object-cover object-center'
               />
               <animated.div
-                aria-hidden="true"
+                aria-hidden='true'
                 suppressHydrationWarning
-                className="absolute inset-0 bg-black"
+                className='absolute inset-0 bg-black'
                 style={{ opacity: f.to((v) => scrimOpacity(i, v)) }}
               />
             </animated.div>
@@ -228,38 +231,39 @@ export const Works = ({ content }: WorksProps) => {
         </div>
 
         {/* Metadata row — index left, name + year centred, view button right */}
-        <div className="pointer-events-none absolute inset-x-4 top-1/2 z-30 grid -translate-y-1/2 grid-cols-[auto_1fr_auto] items-center gap-4 text-sm tracking-wide sm:inset-x-8 sm:gap-6">
-          <span className="justify-self-start tabular-nums text-white/50">
+        <div className='pointer-events-none absolute inset-x-4 top-1/2 z-30 grid -translate-y-1/2 grid-cols-[auto_1fr_auto] items-center gap-4 text-sm tracking-wide sm:inset-x-8 sm:gap-6'>
+          <span className='justify-self-start tabular-nums text-white/50'>
             <span ref={indexElRef}>{pad(1)}</span> / {pad(count)}
           </span>
-          <span className="justify-self-center truncate text-center leading-snug tracking-tight">
-            <span
-              ref={nameElRef}
-              className="text-lg text-white sm:text-2xl"
-            >
+          <span className='justify-self-center truncate text-center leading-snug tracking-tight'>
+            <span ref={nameElRef} className='text-lg text-white sm:text-2xl'>
               {items[0].name}
             </span>
             <span
               ref={yearElRef}
-              className="ml-3 text-sm text-white/45 sm:text-base"
+              className='ml-3 text-sm text-white/45 sm:text-base'
             >
               {items[0].year}
             </span>
           </span>
           <MagneticCta
-            className="pointer-events-auto justify-self-end"
+            className='pointer-events-auto justify-self-end'
             cursorLabel={viewLabel}
           >
             <a
               ref={linkElRef}
               href={items[0].href}
-              target="_blank"
-              rel="noopener noreferrer"
+              target='_blank'
+              rel='noopener noreferrer'
               aria-disabled={items[0].href ? undefined : "true"}
               className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/25 px-5 py-2.5 text-sm font-medium text-white/80 hover:border-white/60 hover:text-white sm:px-6 sm:py-3 ${FOCUS_RING}${items[0].href ? "" : " invisible pointer-events-none"}`}
             >
               {viewLabel}
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" strokeWidth={2.25} />
+              <ArrowUpRight
+                className='h-3.5 w-3.5'
+                aria-hidden='true'
+                strokeWidth={2.25}
+              />
             </a>
           </MagneticCta>
         </div>

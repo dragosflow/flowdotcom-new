@@ -1,8 +1,10 @@
 "use client";
 
 // WebGL backdrop for the site footer: mesh-gradient stage + textured iPhone that
-// flies in with parallax and reversed spin. The phone screen shows a lit Boost
-// Coffee Shop app screenshot so the prop reads as a live product. See ADR-0014.
+// flies in with parallax and reversed spin. The phone is desktop-only (hidden and
+// never initialised ≤ mobileWidth) so mobile keeps the CSS footer colour without
+// the GLB/WebGL cost. The phone screen shows a lit Boost Coffee Shop app
+// screenshot. See ADR-0014.
 import { useEffect, useRef } from "react";
 import {
   TextureLoader,
@@ -23,6 +25,8 @@ import {
   type ChainSceneHandle,
 } from "@/lib/three/chain-scene";
 import { claimCanvas } from "@/lib/three/claim-canvas";
+import { useWindowWidth } from "@/hooks/use-window-size";
+import { springsConfig } from "@/lib/springs/config";
 
 // Same blue palette as the hero/chain; a new seed → a different blob pattern.
 const BASE = "#1c3ee6";
@@ -117,27 +121,22 @@ const absoluteTop = (el: HTMLElement) => {
 };
 
 export const FooterScene = () => {
+  const width = useWindowWidth();
+  const showPhone = width > springsConfig.mobileWidth;
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLCanvasElement>(null);
   const modelRef = useRef<HTMLCanvasElement>(null);
   const fallRef = useRef(SETTLE); // phone progress: 0 = above, SETTLE = rested
 
+  // Gradient backdrop — all viewports (CSS `bg-footer` is the no-WebGL fallback).
   useEffect(() => {
-    if (!bgRef.current || !modelRef.current) return;
+    if (!bgRef.current) return;
 
     const bg = claimCanvas(bgRef.current);
-    const model = claimCanvas(modelRef.current);
     bgRef.current = bg;
-    modelRef.current = model;
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    let disposed = false;
-    let screenCleanup: (() => void) | undefined;
     let bgHandle: GradientBackgroundHandle | undefined;
-    let modelHandle: ChainSceneHandle | undefined;
     try {
       bgHandle = createGradientBackground(bg, {
         base: BASE,
@@ -147,6 +146,26 @@ export const FooterScene = () => {
     } catch {
       /* no WebGL — the footer's solid fallback background shows */
     }
+
+    return () => {
+      bgHandle?.dispose();
+    };
+  }, []);
+
+  // iPhone model — desktop only (skips GLB load + second WebGL context on mobile).
+  useEffect(() => {
+    if (!showPhone || !modelRef.current) return;
+
+    const model = claimCanvas(modelRef.current);
+    modelRef.current = model;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let disposed = false;
+    let screenCleanup: (() => void) | undefined;
+    let modelHandle: ChainSceneHandle | undefined;
     try {
       modelHandle = createChainScene(model, {
         url: MODEL_URL,
@@ -154,6 +173,7 @@ export const FooterScene = () => {
         reducedMotion,
         // Textured iPhone — keep PBR materials; exposure tuned for the blue stage.
         preserveMaterials: true,
+        fitUnits: 2.35, // smaller than the chain model so it doesn't dominate the footer
         material: { ...defaultChainMaterial, exposure: 1.1 },
         spinDirection: -1, // spin the opposite way to the chain
         onModelReady: (scene) => {
@@ -189,18 +209,22 @@ export const FooterScene = () => {
       window.removeEventListener("resize", measure);
       screenCleanup?.();
       modelHandle?.dispose();
-      bgHandle?.dispose();
     };
-  }, []);
+  }, [showPhone]);
 
   return (
     <div
       ref={wrapRef}
-      aria-hidden='true'
-      className='pointer-events-none absolute inset-0'
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0"
     >
-      <canvas ref={bgRef} className='absolute inset-0 block h-full w-full' />
-      <canvas ref={modelRef} className='absolute inset-0 block h-full w-full' />
+      <canvas ref={bgRef} className="absolute inset-0 block h-full w-full" />
+      {showPhone ? (
+        <canvas
+          ref={modelRef}
+          className="absolute inset-0 block h-full w-full"
+        />
+      ) : null}
     </div>
   );
 };

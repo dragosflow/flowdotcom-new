@@ -1,11 +1,12 @@
 "use client";
 
 // Site footer — a full-height blue mesh-gradient panel (with a chrome iPhone mock
-// that settles at its centre, see FooterScene) that slides up over the pinned contact
-// form (relative z-20 over the form's sticky z-10, the same two-layer reveal the
-// Product uses over the chain; see home.tsx). Laid out as a full-height column: a
-// centred "questions?" heading + jump-to-form link at the top, the phone in the open
-// centre, then the link columns and bottom bar pushed to the base.
+// that settles at its centre on desktop only, see FooterScene) that slides up over
+// the pinned contact form (relative z-20 over the form's sticky z-10, the same
+// two-layer reveal the Product uses over the chain; see home.tsx). Laid out as a
+// full-height column: a centred "questions?" heading + jump-to-form link at the
+// top, the phone in the open centre (md+), then the link columns and bottom bar
+// pushed to the base.
 import { ArrowUpRight } from "lucide-react";
 import type { FooterContent, FooterLink } from "@/data/mocks/contact";
 import { FooterScene } from "@/views/footer-scene";

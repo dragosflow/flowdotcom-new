@@ -214,6 +214,7 @@ call time.
 
 **Decision.** This is the second authorized edit to the `#do-not-modify` engine
 (after ADR-0009). Two corrections:
+
 1. In `in-view.tsx`, call the callback ref — `setInViewNode(node)` — instead of
    assigning `.current`, so the component observes itself when no `trigger` is
    given.
@@ -236,8 +237,8 @@ and `yarn lint` are both clean (0 errors, 0 warnings). The springs folder remain
 
 **Context.** ADR-0004 made design tokens the styling currency and ruled that
 "new values must be added to `globals.css` first." Combined with the
-design-system guidance to *"extract repeated multi-class patterns to
-`@layer components`"*, the path of least resistance for any repeated visual
+design-system guidance to _"extract repeated multi-class patterns to
+`@layer components`"_, the path of least resistance for any repeated visual
 pattern became a named class in `globals.css`. On an animation-heavy,
 multi-section marketing site that grows the file without bound — a single
 global stylesheet accumulating hundreds of component-specific classes that are
@@ -250,7 +251,7 @@ bounded by design.
 
 - One-off styling → **Tailwind utilities** in `className`. Nothing enters CSS.
 - A repeated pattern with markup/structure/props → a **React component**
-  (`components/ui/`), *not* a CSS class. This is the default answer to "this
+  (`components/ui/`), _not_ a CSS class. This is the default answer to "this
   looks repeated" — e.g. an eyebrow label with a `::before` dot is an
   `<Eyebrow>` component, not a `.label-eyebrow` class.
 - A repeated pure-utility combo with no structure → a Tailwind v4 `@utility`.
@@ -268,8 +269,8 @@ bounded by design.
 
 **Consequences.** `globals.css` stays a few-hundred-line file indefinitely.
 "Repeated thing" pressure now pushes toward React components — which the
-project wants anyway. This **amends ADR-0004**: design *tokens* still go in
-`globals.css` first, but component-specific *classes* no longer do.
+project wants anyway. This **amends ADR-0004**: design _tokens_ still go in
+`globals.css` first, but component-specific _classes_ no longer do.
 [[design-system]] and [[component-conventions]] updated to match.
 
 ---
@@ -285,6 +286,7 @@ consistent shape.
 
 **Decision.** External calls go through Next.js Route Handlers —
 `src/app/api/<resource>/route.ts`:
+
 - **The handler owns the work** — business logic, multiple upstream calls,
   filtering, and reading secret env vars all live in `route.ts`. No mandatory
   passthrough service layer; extract shared code only when genuinely reused.
@@ -322,6 +324,7 @@ loop; the home view was a top-level `"use client"` (violating hard rule #6);
 and the animation-heavy starter ignored `prefers-reduced-motion`.
 
 **Decision.**
+
 - **Site config.** `src/lib/site.ts` (`siteConfig`) is the single source of
   truth for SEO, fed by `NEXT_PUBLIC_SITE_URL` (fallback `http://localhost:3000`).
 - **Metadata.** `metadataBase` is always set; `themeColor` moved to a
@@ -357,6 +360,7 @@ opts routes out of static rendering; reduced-motion is the preferred lever (see
 
 **Context.** A performance review of the animation engine found load issues that
 scale with the number of animated components on a page:
+
 - `useLoop` started a **private `requestAnimationFrame` loop per hook instance** —
   N scroll-driven components meant N rAF loops, none of which ever stopped.
 - `useWindowWidth` attached a **separate debounced `resize` listener per call** —
@@ -366,11 +370,12 @@ scale with the number of animated components on a page:
   created observers that were never disconnected.
 - `useLoop`'s mount-only effect captured a **stale `onRender`**, so prop changes
   after mount were ignored.
-All of this lives under `src/hooks/animation/` and `src/components/animation/springs/`
-— `#do-not-modify` (ADR-0002).
+  All of this lives under `src/hooks/animation/` and `src/components/animation/springs/`
+  — `#do-not-modify` (ADR-0002).
 
 **Decision.** With explicit user sign-off, apply a one-time performance refactor
 to the protected engine, and introduce a shared, unprotected loop primitive:
+
 - New `src/lib/animation/ticker.ts` — a single app-wide, reference-counted rAF
   loop (`subscribeToTicker`). It starts on the first subscriber, stops on the
   last, and throttles each subscriber independently. **Not** `#do-not-modify` —
@@ -413,6 +418,7 @@ to keep a rem-based design proportional across viewports. It shipped as a
 is not a project dependency, and global CSS belongs in `globals.css` per ADR-0004.
 
 **Decision.** Keep only the scaling behaviour; rebuild it to the project stack.
+
 - **Scale down** (viewport ≤ largest breakpoint) — `vw`-based `html { font-size }`
   media queries in `globals.css`, inside `@layer base`.
 - **Scale up** (viewport > largest breakpoint) — a `<AdaptiveGrid>` client
@@ -440,6 +446,7 @@ Documentation drifts the moment it relies on memory.
 
 **Decision.** Encode the workflow as Claude Code hooks in `.claude/settings.json`
 (committed, team-wide):
+
 - `SessionStart` — injects a pointer to read the vault first.
 - `UserPromptSubmit` — on every request, reminds the agent to consult the relevant
   guide and to update docs for any change made.
@@ -464,6 +471,7 @@ at the repo root alongside the vault, creating duplication — the same conventi
 existed both as terse specs and as expanded vault notes, which would drift.
 
 **Decision.** The vault is the **only** documentation source.
+
 - `project-specs.md` — deleted; its content was already decomposed into the
   `architecture/` and `frontend/` notes (and `environment-variables.md`).
 - `text-engine-docs.md` — moved into the vault as [[text-engine-reference]].
@@ -511,7 +519,7 @@ second brain. Root spec files remain as machine-read sources; the vault expands 
 them. See [[ai-agent-guide]].
 
 **Consequences.** Docs must now be maintained alongside code. The vault is the
-canonical place to *understand* the project; root files stay canonical for *tooling*.
+canonical place to _understand_ the project; root files stay canonical for _tooling_.
 
 ---
 

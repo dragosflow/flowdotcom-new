@@ -1,12 +1,11 @@
 "use client";
 
-// Spring-driven custom cursor — a small filled core + a thin outer ring that
-// blooms on interactive targets. Fully imperative (refs + shared ticker); no
-// React re-renders on move. Off on touch / narrow / prefers-reduced-motion.
-// Native cursor stays until the first pointer move.
+// Lightweight custom cursor — filled core (instant) + lagging ring (lerp).
+// No React re-renders on move. Ticker runs only while the ring/look is settling,
+// then unsubscribes so idle pages cost nothing. Off on touch / narrow /
+// prefers-reduced-motion. Native cursor stays until the first pointer move.
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useSpring } from "@react-spring/web";
 import { subscribeToTicker } from "@/lib/animation/ticker";
 import { useWindowWidth } from "@/hooks/use-window-size";
 import { springsConfig } from "@/lib/springs/config";
@@ -22,6 +21,13 @@ const RING: Record<CursorKind, number> = {
 };
 
 const CORE = 6;
+const RING_BASE = RING.default;
+
+/** Ring follow speed (0–1 per frame @60fps). Higher = snappier, less “laggy”. */
+const RING_LERP = 0.28;
+/** Look (size/opacity) lerp. */
+const LOOK_LERP = 0.2;
+const EPS = 0.15;
 
 const readKind = (el: Element | null): CursorKind => {
   const node = el?.closest?.("[data-cursor]") as HTMLElement | null;
@@ -30,35 +36,15 @@ const readKind = (el: Element | null): CursorKind => {
   return raw === "link" || raw === "cta" || raw === "media" ? raw : "default";
 };
 
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
 export const CustomCursor = () => {
   const width = useWindowWidth();
   const [enabled, setEnabled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const rootRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const coreRef = useRef<HTMLDivElement>(null);
-
-  const armedRef = useRef(false);
-  const kindRef = useRef<CursorKind>("default");
-
-  const [pos] = useSpring(() => ({
-    x: 0,
-    y: 0,
-    config: { tension: 420, friction: 34 },
-  }));
-  // Core follows a touch tighter / slightly ahead of the ring for lag feel.
-  const [corePos] = useSpring(() => ({
-    x: 0,
-    y: 0,
-    config: { tension: 900, friction: 40 },
-  }));
-  const [look] = useSpring(() => ({
-    ring: RING.default,
-    opacity: 0,
-    coreScale: 1,
-    config: { tension: 300, friction: 22 },
-  }));
 
   useEffect(() => {
     setMounted(true);
@@ -75,123 +61,157 @@ export const CustomCursor = () => {
   useEffect(() => {
     if (!enabled) {
       document.documentElement.classList.remove("has-custom-cursor");
-      armedRef.current = false;
       return;
     }
 
-    const applyLook = () => {
-      const kind = kindRef.current;
-      look.ring.start(RING[kind]);
-      look.opacity.start(1);
-      look.coreScale.start(kind === "default" ? 1 : 0.55);
+    let armed = false;
+    let kind: CursorKind = "default";
+    let targetX = 0;
+    let targetY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let ringSize = RING_BASE;
+    let targetRing = RING_BASE;
+    let opacity = 0;
+    let targetOpacity = 0;
+    let coreScale = 1;
+    let targetCoreScale = 1;
+    let settling = false;
+    let unsub: (() => void) | null = null;
+
+    const writeCore = (x: number, y: number, scale: number) => {
+      const el = coreRef.current;
+      if (!el) return;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${scale})`;
     };
 
-    const move = (clientX: number, clientY: number, el: Element | null) => {
-      if (!armedRef.current) {
-        pos.x.start(clientX, { immediate: true });
-        pos.y.start(clientY, { immediate: true });
-        corePos.x.start(clientX, { immediate: true });
-        corePos.y.start(clientY, { immediate: true });
-        armedRef.current = true;
+    const writeRing = (x: number, y: number, size: number, op: number) => {
+      const el = ringRef.current;
+      if (!el) return;
+      const s = size / RING_BASE;
+      el.style.opacity = String(op);
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${s})`;
+    };
+
+    const ensureTicker = () => {
+      if (unsub) return;
+      settling = true;
+      unsub = subscribeToTicker(
+        () => {
+          ringX = lerp(ringX, targetX, RING_LERP);
+          ringY = lerp(ringY, targetY, RING_LERP);
+          ringSize = lerp(ringSize, targetRing, LOOK_LERP);
+          opacity = lerp(opacity, targetOpacity, LOOK_LERP);
+          coreScale = lerp(coreScale, targetCoreScale, LOOK_LERP);
+
+          writeRing(ringX, ringY, ringSize, opacity);
+          writeCore(targetX, targetY, coreScale);
+
+          const done =
+            Math.abs(ringX - targetX) < EPS &&
+            Math.abs(ringY - targetY) < EPS &&
+            Math.abs(ringSize - targetRing) < EPS &&
+            Math.abs(opacity - targetOpacity) < 0.01 &&
+            Math.abs(coreScale - targetCoreScale) < 0.01;
+
+          if (done) {
+            ringX = targetX;
+            ringY = targetY;
+            ringSize = targetRing;
+            opacity = targetOpacity;
+            coreScale = targetCoreScale;
+            writeRing(ringX, ringY, ringSize, opacity);
+            writeCore(targetX, targetY, coreScale);
+            settling = false;
+            unsub?.();
+            unsub = null;
+          }
+        },
+        () => 0,
+      );
+    };
+
+    const applyKind = (next: CursorKind) => {
+      if (kind === next && targetOpacity === 1) return;
+      kind = next;
+      targetRing = RING[next];
+      targetCoreScale = next === "default" ? 1 : 0.55;
+      targetOpacity = 1;
+      ensureTicker();
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!armed) {
+        armed = true;
+        ringX = targetX;
+        ringY = targetY;
         document.documentElement.classList.add("has-custom-cursor");
+        writeCore(targetX, targetY, coreScale);
+        writeRing(ringX, ringY, ringSize, opacity);
+        applyKind(readKind(e.target as Element | null));
       } else {
-        pos.x.start(clientX);
-        pos.y.start(clientY);
-        corePos.x.start(clientX);
-        corePos.y.start(clientY);
+        // Core snaps — feels precise; ring catches up via ticker.
+        writeCore(targetX, targetY, coreScale);
       }
-      kindRef.current = readKind(el);
-      applyLook();
+
+      ensureTicker();
     };
 
-    const onPointerMove = (e: PointerEvent) =>
-      move(e.clientX, e.clientY, e.target as Element | null);
-    const onMouseMove = (e: MouseEvent) =>
-      move(e.clientX, e.clientY, e.target as Element | null);
     const onOver = (e: Event) => {
-      kindRef.current = readKind(e.target as Element | null);
-      applyLook();
+      applyKind(readKind(e.target as Element | null));
     };
-    const onLeave = () => look.opacity.start(0);
 
+    const onLeave = () => {
+      targetOpacity = 0;
+      ensureTicker();
+    };
+
+    // pointermove alone — mousemove would double-fire on mouse and waste work.
     window.addEventListener("pointermove", onPointerMove, { passive: true });
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
     window.addEventListener("mouseover", onOver, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
-
-    const unsubscribe = subscribeToTicker(
-      () => {
-        const opacity = look.opacity.get();
-        const ring = look.ring.get();
-        const coreScale = look.coreScale.get();
-
-        const root = rootRef.current;
-        if (root) {
-          // Root is only a stacking/opacity shell — children carry their own x/y.
-          root.style.opacity = String(opacity);
-        }
-
-        const ringEl = ringRef.current;
-        if (ringEl) {
-          const x = pos.x.get();
-          const y = pos.y.get();
-          ringEl.style.width = `${ring}px`;
-          ringEl.style.height = `${ring}px`;
-          ringEl.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-        }
-
-        const coreEl = coreRef.current;
-        if (coreEl) {
-          const x = corePos.x.get();
-          const y = corePos.y.get();
-          coreEl.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${coreScale})`;
-        }
-      },
-      () => 0,
-    );
 
     return () => {
       document.documentElement.classList.remove("has-custom-cursor");
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseover", onOver);
       document.documentElement.removeEventListener("mouseleave", onLeave);
-      unsubscribe();
+      unsub?.();
+      void settling;
     };
-  }, [enabled, pos, corePos, look]);
+  }, [enabled]);
 
   if (!mounted || !enabled) return null;
 
   return createPortal(
-    <div
-      ref={rootRef}
-      data-cursor-root=""
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[9999] mix-blend-difference"
-      style={{ opacity: 0 }}
-    >
-      {/* Soft lagging ring */}
+    <>
       <div
         ref={ringRef}
-        className="absolute left-0 top-0 rounded-full will-change-transform"
+        data-cursor-root=""
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] rounded-full mix-blend-difference will-change-transform"
         style={{
-          width: RING.default,
-          height: RING.default,
+          width: RING_BASE,
+          height: RING_BASE,
+          opacity: 0,
           border: "1.5px solid rgba(255,255,255,0.95)",
           boxShadow: "0 0 0 1px rgba(0,0,0,0.2)",
         }}
       />
-      {/* Snappy core dot */}
       <div
         ref={coreRef}
-        className="absolute left-0 top-0 rounded-full bg-white will-change-transform"
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] rounded-full bg-white mix-blend-difference will-change-transform"
         style={{
           width: CORE,
           height: CORE,
           boxShadow: "0 0 0 1px rgba(0,0,0,0.25)",
         }}
       />
-    </div>,
+    </>,
     document.body,
   );
 };

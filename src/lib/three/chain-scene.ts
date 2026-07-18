@@ -52,6 +52,8 @@ export interface ChainSceneOptions {
   maxSpin?: number;
   /** Keep the GLB's own materials (textured models). Default false applies chrome. */
   preserveMaterials?: boolean;
+  /** Target world-unit size after fit (longest axis). Default `3.6`. */
+  fitUnits?: number;
   /** Optional tweak after the GLB loads (e.g. blank a screen texture). */
   onModelReady?: (model: THREE.Object3D) => void;
 }
@@ -82,6 +84,7 @@ export function createChainScene(
     spinAccel = SCROLL_ACCEL,
     maxSpin = MAX_SPIN,
     preserveMaterials = false,
+    fitUnits = 3.6,
     onModelReady,
   }: ChainSceneOptions,
 ): ChainSceneHandle {
@@ -92,7 +95,11 @@ export function createChainScene(
   };
   let { w, h } = sizeOf();
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+  });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(w, h, false);
   renderer.setClearColor(0x000000, 0);
@@ -142,7 +149,7 @@ export function createChainScene(
       const center = box.getCenter(new THREE.Vector3());
       model.position.sub(center); // centre on origin
       const maxDim = Math.max(size.x, size.y, size.z) || 1;
-      model.scale.setScalar(3.6 / maxDim); // fit to ~3.6 world units
+      model.scale.setScalar(fitUnits / maxDim);
       if (chrome) {
         model.traverse((o) => {
           const mesh = o as THREE.Mesh;

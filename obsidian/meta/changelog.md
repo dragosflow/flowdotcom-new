@@ -14,6 +14,18 @@ This is a human-curated log — not a mirror of `git log`.
   no banner/modal; vault refs updated (data-flow, system-overview, common catalog,
   routing, tech-stack, folder-structure).
 
+- **Footer iPhone: hide on mobile** (`views/footer-scene.tsx`): 3D phone canvas
+  is not mounted (and the GLB is not loaded) at `≤ mobileWidth`; gradient
+  backdrop still runs. Desktop unchanged.
+
+- **Footer iPhone: smaller on desktop** (`footer-scene.tsx`, `chain-scene.ts`):
+  optional `fitUnits` (default 3.6); footer phone uses `2.35` so it sits lighter
+  in the panel. Chain model size unchanged.
+
+- **Custom cursor perf** (`custom-cursor.tsx`): dropped react-spring + perpetual
+  ticker + full-viewport `mix-blend-difference`. Core snaps on `pointermove`;
+  ring/size lerp only while settling (ticker unsubscribes when idle).
+
 - **Stats bento stretch** (`views/stats.tsx`): three columns share one row height
   (`items-stretch` + `h-full`); right stack uses `flex-1` on the Hover shell so
   the blue data card fills leftover space under the reach bar.

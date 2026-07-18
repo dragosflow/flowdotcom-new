@@ -491,7 +491,7 @@ export function createPlasmaBurst(
       uShockAmp: { value: 0 },
       uPointer: { value: new THREE.Vector2(0, 0) },
       uMagnet: { value: 0 },
-      uTanHalfFov: { value: Math.tan(((48 * Math.PI) / 180) / 2) },
+      uTanHalfFov: { value: Math.tan((48 * Math.PI) / 180 / 2) },
       uAspect: { value: w / h },
       uMagnetRadius: { value: MAGNET_RADIUS },
     },

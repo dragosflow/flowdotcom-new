@@ -87,9 +87,9 @@ See [[smooth-scroll]] and [[data-flow]].
 
 ## Misc
 
-| Package         | Version  | Role                                                                 |
-| --------------- | -------- | -------------------------------------------------------------------- |
-| `lucide-react`  | `^1.25.0` | Icon set for UI marks (services, CTAs, nav zap, …). Brand tech logos in the logo marquee stay custom SVGs. |
+| Package        | Version   | Role                                                                                                       |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| `lucide-react` | `^1.25.0` | Icon set for UI marks (services, CTAs, nav zap, …). Brand tech logos in the logo marquee stay custom SVGs. |
 
 ## Tooling
 
