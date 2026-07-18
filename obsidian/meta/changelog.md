@@ -34,8 +34,8 @@ This is a human-curated log — not a mirror of `git log`.
 - **AIO entity: FLOWDOTCOM S.R.L** (`site.ts`, `structured-data.ts`, footer):
   `legalName` in site config; JSON-LD Organization `legalName` + `alternateName`;
   meta description names the SRL; footer shows company in contact +
-  `entityNote` (“site-ul oficial al FLOWDOTCOM S.R.L”). Legal lines sit on a
-  white strip with black text for contrast on the dark footer.
+  `entityNote` (“site-ul oficial al FLOWDOTCOM S.R.L”). Legal lines use black
+  text without a background strip (same bar layout as before).
 
 - **SEO / AIO pass** (`site.ts`, `generate-page-metadata.ts`, `structured-data.ts`,
   `json-ld.tsx`, pages, `robots.ts`, `layout.tsx`, home/services copy): richer
